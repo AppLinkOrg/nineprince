@@ -1,0 +1,351 @@
+<!-- <ion-header>
+  <ion-toolbar color='zhuti'>
+    <ion-title>袋鼠家政</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
+  (ionScrollEnd)="logScrollEnd()">
+
+  <img src="{{uploadpath}}resource/{{res.xqfb}}" class="imgs">
+
+  <div class="xuqiu">
+
+
+    <div class="h5"><span class="txt-red h5">*</span>您需要阿姨住在家里吗？(单选)</div>
+
+    <!-- <div class="flex-row flex-center margin-top">
+
+      <div class="flex-1"></div>
+
+      <div class="  text-center padding-30 {{zj=='Y'?'check':'block'}}" (click)='check("Y")'>
+        <img src="{{uploadpath}}resource/{{res.zaijia}}" class="icon">
+        <div class="h5 margin-top-20 {{zj=='Y'?'txt-white':''}}">在家</div>
+      </div>
+
+      <div class="flex-1"></div>
+
+      <div class="  text-center padding-30 {{zj=='N'?'check':'block'}}" (click)='check("N")'>
+        <img src="{{uploadpath}}resource/{{res.zaijia}}" class="icon">
+        <div class="h5 margin-top-20 {{zj=='N'?'txt-white':''}}">不在家</div>
+      </div>
+
+      <div class="flex-1"></div>
+
+    </div> -->
+
+    <div class="flex-row flex-center flex-wrap margin-top-20">
+
+      <div *ngFor='let item of zhujialist;let i=index'>
+
+        <div class="padding-10  margin-10 radius-10 h5 {{zhujia==i?'bg-green txt-white':'bg-gray'}}"
+          (click)='xuanzhujia(i,item.id)'>
+          {{item.name}}</div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="h5 margin-top">服务地址</div>
+
+    <div class=" margin-top">
+
+      <div class="flex-row flex-center ">
+        <div class="h5">工作地点：</div>
+        <div class="flex-1"></div>
+        <select class="select" style="width:80px" [(ngModel)]="xzshen" (change)="xzshen1(xzshen)">
+          <option value="{{item.name}}" *ngFor="let item of shen" class="h5">{{item.name}}</option>
+        </select>
+
+        <select class="select" style="width:80px" *ngIf="shi.length!=0" [(ngModel)]="xzshi" (change)="xzshi1(xzshi)">
+          <option value="{{item.name}}" *ngFor="let item of shi" class="h5">{{item.name}}</option>
+        </select>
+
+        <select class="select" style="width:80px" *ngIf="qu.length!=0" [(ngModel)]="xzqu">
+          <option value="{{item.name}}" *ngFor="let item of qu" class="h5">{{item.name}}</option>
+        </select>
+
+        <!-- <img src="{{uploadpath}}resource/{{res.right}}" class="icon"> -->
+      </div>
+
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="flex-row flex-center ">
+      <div class="h5">街道/小区</div>
+      <div class="flex-1"></div>
+      <input [(ngModel)]="xiaoqu" class="h5 margin-left-10 text-right" style="border: 0;" type="text"
+        placeholder="请填写街道/小区">
+    </div>
+
+    <div class="line"></div>
+
+    <div class="flex-row flex-center ">
+      <div class="h5">上户日期</div>
+      <div class="flex-1"></div>
+      <input [(ngModel)]="date" class="h5 margin-left-10 text-right" style="border: 0;" type="date"
+        placeholder="请选择上户日期">
+    </div>
+
+  
+    <div class="line"></div>
+
+    <div class="h5"><span class="txt-red h5">*</span>您需要什么类型的阿姨(单选)</div>
+
+
+    <div class="flex-row flex-center flex-wrap margin-top-20">
+
+      <div *ngFor='let item of yixianlist;let i=index'>
+
+        <div class="padding-10  margin-10 radius-10 h5 {{lx==i?'bg-green txt-white':'bg-gray'}}"
+          (click)='xuanleixin(i,item.id)'>
+          {{item.name}}</div>
+
+      </div>
+
+    </div>
+
+
+    <div class="line"></div>
+
+    <div class="h5  margin-top">您需要阿姨做什么(单选)</div>
+
+    <div class="flex-row flex-center   margin-top-20">
+      <div class="padding-10  margin-10 radius-10 h5 {{zsm==1?'bg-green txt-white':'bg-gray'}}" (click)='zuoshenme(1)'>
+        做饭做家务</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{zsm==2?'bg-green txt-white':'bg-gray'}}" (click)='zuoshenme(2)'>
+        照顾小孩</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{zsm==3?'bg-green txt-white':'bg-gray'}}" (click)='zuoshenme(3)'>
+        照顾老人</div>
+    </div>
+
+
+    <!-- 做家务 -->
+    <div class="" *ngIf="zsm==1">
+
+      <div class="h5 margin-top">口味要求(多选)</div>
+
+      <div class="flex-row flex-center flex-wrap margin-top-20">
+        <div *ngFor='let item of cuisinelist;let i=index'>
+          <div class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}} "
+            (click)='xuancaixi(i)'>{{item.name}}</div>
+        </div>
+      </div>
+
+      <div class="h5 margin-top">家庭卫生面积(单选)</div>
+
+      <div class="flex-row flex-center flex-wrap margin-top-20">
+        <div *ngFor='let item of mianjilist;let i=index'>
+          <div class="padding-10  margin-10 radius-10 h5 {{mj==i?'bg-green txt-white':'bg-gray'}} "
+            (click)='xuanmianji(i,item.id)'>{{item.name}}</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 照顾小孩 -->
+    <div class="" *ngIf="zsm==2">
+
+      <div class="flex-row flex-center margin-top">
+        <div class="h5  flex-1">小朋友情况</div>
+        <div class="h5 txt-red" (click)='add()'>添加</div>
+      </div>
+
+
+      <div class="flex-row flex-center margin-top" *ngFor="let item of kidlist;let i=index">
+
+        <div class="h5">第{{item.id}}位</div>
+
+        <img src="{{uploadpath}}resource/{{res.jianhao}}" class="icon-25 margin-left-40" (click)="jian(i)">
+        <div class="margin-left-40">{{item.age<1?item.age*10:item.age}}{{item.age>=1?'岁':'个月'}}</div>
+        <img src="{{uploadpath}}resource/{{res.jiahao}}" class="icon-25 margin-left-40" (click)="jia(i)">
+      </div>
+
+    </div>
+
+    <!-- 照顾老人 -->
+    <div class="" *ngIf="zsm==3">
+
+      <div class="margin-top flex-row flex-center">
+        <div class="h5 ">老人情况(单选)</div>
+
+        <img src="{{uploadpath}}resource/{{res.xz}}" class="icon-25 margin-left-40" *ngIf="oldmansex=='A'">
+        <img src="{{uploadpath}}resource/{{res.wxz}}" class="icon-25 margin-left-40" *ngIf="oldmansex=='B'"
+          (click)="checkoldmansex('A')">
+        <div class="margin-left-10">男</div>
+
+        <img src="{{uploadpath}}resource/{{res.xz}}" class="icon-25 margin-left-40" *ngIf="oldmansex=='B'">
+        <img src="{{uploadpath}}resource/{{res.wxz}}" class="icon-25 margin-left-40" *ngIf="oldmansex=='A'"
+          (click)="checkoldmansex('B')">
+        <div class="margin-left-10">女</div>
+      </div>
+
+      <div class="flex-row flex-center   margin-top-20">
+        <div class="padding-10  margin-10 radius-10 h5 {{zl=='A'?'bg-green txt-white':'bg-gray'}}"
+          (click)='laoren("A")'>能自理</div>
+        <div class="padding-10  margin-10 radius-10 h5 {{zl=='B'?'bg-green txt-white':'bg-gray'}}"
+          (click)='laoren("B")'>半自理</div>
+        <div class="padding-10  margin-10 radius-10 h5 {{zl=='C'?'bg-green txt-white':'bg-gray'}}"
+          (click)='laoren("C")'>不自理</div>
+      </div>
+
+
+
+    </div>
+
+
+    <div class="h5 margin-top">您还需要阿姨做什么(多选)</div>
+
+    <div class="flex-row flex-center   margin-top-20">
+      <div *ngFor="let item of zsmlist;let i=index;">
+        <div class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+          (click)='zuoshenme2(i)' *ngIf="item.id!=zsm">{{item.name}}</div>
+      </div>
+
+    </div>
+
+
+    <div class="h5 margin-top"><span class="txt-red h5">*</span>您还有其他要求吗？</div>
+
+    <div class="flex-row flex-center">
+      <div class="padding-10  margin-10 radius-10 h5 {{fl==1?'bg-green txt-white':'bg-gray'}}" (click)='checkfenlei(1)'>
+        经验</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{fl==2?'bg-green txt-white':'bg-gray'}}" (click)='checkfenlei(2)'>
+        年龄</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{fl==3?'bg-green txt-white':'bg-gray'}}" (click)='checkfenlei(3)'>
+        籍贯</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{fl==4?'bg-green txt-white':'bg-gray'}}" (click)='checkfenlei(4)'>
+        学历</div>
+      <div class="padding-10  margin-10 radius-10 h5 {{fl==5?'bg-green txt-white':'bg-gray'}}" (click)='checkfenlei(5)'>
+        性格</div>
+    </div>
+
+
+    <!-- 经验 -->
+    <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==1">
+      <div *ngFor="let item of experiencelist;let i=index"
+        class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+        (click)='item.check=item.check==true?false:true'>
+        {{item.name}}</div>
+    </div>
+
+    <!-- 年龄 -->
+    <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==2">
+      <div *ngFor="let item of agelist;let i=index"
+        class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+        (click)='item.check=item.check==true?false:true'>
+        {{item.name}}</div>
+    </div>
+
+    <!-- 籍贯 -->
+    <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==3">
+      <div *ngFor="let item of provincelist;let i=index"
+        class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+        (click)='item.check=item.check==true?false:true'>
+        {{item.name}}</div>
+    </div>
+
+    <!-- 学历 -->
+    <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==4">
+      <div *ngFor="let item of xuelilist;let i=index"
+        class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+        (click)='item.check=item.check==true?false:true'>
+        {{item.name}}</div>
+    </div>
+
+    <!-- 性格 -->
+    <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==5">
+      <div *ngFor="let item of xinggelist;let i=index"
+        class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
+        (click)='checkxingge(i)'>
+        {{item.humanxingge}}</div>
+    </div>
+
+
+    <div class="line"></div>
+
+    <div class="h5 margin-top">您预计给阿姨的月工资是？</div>
+
+    <div class="flex-row flex-center margin-top">
+      <img src="{{uploadpath}}resource/{{res.jianhao}}" class="icon-25  " (click)="kouqian()">
+      <div class="margin-left-40">{{money}} 元</div>
+      <img src="{{uploadpath}}resource/{{res.jiahao}}" class="icon-25 margin-left-40" (click)="jiaqian()">
+    </div>
+
+
+
+    <div class="line"></div>
+
+    <div class="txt-bold text-center">个人信息</div>
+
+    <div class="flex-row flex-center margin-top">
+      <div class="h5">称呼：</div>
+
+      <input [(ngModel)]="name" class="h5 margin-left-10  " style="border: 0;width: 100px;" type="text"
+        placeholder="请输入姓名">
+  
+        <div class="flex-1"></div>
+
+          <img src="{{uploadpath}}resource/{{res.xz}}" class="icon-25 margin-left-20" *ngIf="sex=='A'">
+          <img src="{{uploadpath}}resource/{{res.wxz}}" class="icon-25 margin-left-20" *ngIf="sex=='B'"
+            (click)="checksex('A')">
+          <div class="margin-left-10 h5">先生</div>
+
+          
+  
+          <img src="{{uploadpath}}resource/{{res.xz}}" class="icon-25 margin-left-40" *ngIf="sex=='B'">
+          <img src="{{uploadpath}}resource/{{res.wxz}}" class="icon-25 margin-left-40" *ngIf="sex=='A'"
+            (click)="checksex('B')">
+          <div class="margin-left-10 h5">女士</div>
+ 
+
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="flex-row flex-center ">
+      <div class="h5">联系方式</div>
+      <div class="flex-1"></div>
+      <input [(ngModel)]="phone" class="h5 margin-left-10 text-right" style="border: 0;" type="text"
+        placeholder="请输入手机号码">
+    </div>
+
+    <div class="line"></div>
+  
+    <div class="flex-row flex-center ">
+      <input type="text" class="h5 " [(ngModel)]="yanzhanma" placeholder="输入短信验证码">
+      <div class="flex-1"></div>
+     
+     <div class="radius-10 padding-10" style="border: 1px solid rgb(201, 199, 199);" (click)='send()' *ngIf='shijian<=0'>获取短信验证码</div>
+     <div class="radius-10 padding-10" style="border: 1px solid rgb(201, 199, 199);"  *ngIf='shijian>0'>{{shijian}}秒后重新发送</div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="">{{fenxiaoshang}} 向您分享了家政服务需求</div>
+
+    <div (click)="submit()" class="margin-10  padding-20 text-center  radius-10 txt-white  h5" style="background: #53CAC3;">提交</div>
+
+
+    <div style="height: 100px;">
+     
+    </div>
+
+  </div>
+
+  <!-- <div class="flex-row flex-column">
+    <div (click)="submit()" class="btns h5">提交</div>
+  </div> -->
+
+  <!-- <div style="height: 100px;"></div> -->
+
+  
+
+
+
+</ion-content>

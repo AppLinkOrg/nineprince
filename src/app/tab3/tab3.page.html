@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar  color='primary'>
+      <ion-buttons slot="start">
+        <ion-button (click)='back()'>
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>候选阿姨</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+
+  <div class="flex-row flex-column margin-top" *ngIf='jzz==false && houxuanlist.length==0'>
+    <img src="{{uploadpath}}resource/{{res.wushuju}}"  class="width"/>
+  </div>
+
+  <div class="flex-row flex-column margin-top-100" *ngIf='jzz==true'>
+    <img src="{{uploadpath}}resource/{{res.jiazai}}"  class="width" />
+  </div>
+
+
+  <div class="flex-row flex-wrap margin-left-30 margin-top " style="width:100%">
+    <div class="flex-row flex-column" >
+      <div *ngFor="let item of houxuanlist;let idx=index"    class="bg-white width margin-right-30 margin-bottom-30">
+        <div *ngIf='idx%2==0' style="position: relative;">
+          <img src="{{uploadpath}}resource/{{res.shanchu2}}" class="icon-25 porimg" (click)='shanchu(item.id)'/>
+          <img src="{{uploadpath}}human/{{item.human_img}}"  class="icon-300 margin-left-15 margin-top-20 margin-right-15" (click)="xiangqing(item.human_id)"/>
+          <div class="flex-row margin-top-10" (click)="xiangqing(item.human_id)">
+            <div class="h4-5 txt-bold flex-1 margin-left-20 ">{{item.human_name}}</div>
+          </div>
+          <div class="flex-row margin-bottom-20 margin-top-10" (click)="xiangqing(item.human_id)">
+            <div class="h6 margin-left-20">{{item.human_jingyan}}年经验</div>
+            <div class="flex-1"></div>
+            <div class="h6 margin-left-80 margin-right-30">{{item.human_age}}岁</div>
+          </div>
+          <div class="h6 margin-left-20 margin-bottom-20">{{item.yixian_name}}</div>
+    
+        </div>
+       
+      </div>
+    </div>
+    <div class="flex-row flex-column">
+      <div *ngFor="let item of houxuanlist;let idx=index"    class="bg-white width margin-right-30 margin-bottom-30">
+        <div *ngIf='idx%2!=0' style="position: relative;">
+          <img src="{{uploadpath}}resource/{{res.shanchu2}}" class="icon-25 porimg" (click)='shanchu(item.id)'/>
+          <img src="{{uploadpath}}human/{{item.human_img}}"  class="icon-300 margin-left-15 margin-top-20 margin-right-15" (click)="xiangqing(item.human_id)"/>
+          <div class="flex-row margin-top-10" (click)="xiangqing(item.human_id)">
+            <div class="h4-5 txt-bold flex-1 margin-left-20 ">{{item.human_name}}</div>
+          </div>
+          <div class="flex-row margin-bottom-20 margin-top-10" (click)="xiangqing(item.human_id)">
+            <div class="h6 margin-left-20">{{item.human_jingyan}}年经验</div>
+            <div class="flex-1"></div>
+            <div class="h6 margin-left-80 margin-right-30">{{item.human_age}}岁</div>
+          </div>
+          <div class="h6 margin-left-20 margin-bottom-20">{{item.yixian_name}}</div>
+
+        </div>
+        
+  
+      </div>
+    </div>
+  
+  
+  
+  </div>
+
+  <div class="flex-row flex-center bg-white pof">
+    <div class="flex-1"></div>
+    <div class="btns" (click)='tijiao()'>提交</div>
+    <div class="flex-1"></div>
+  </div>
+
+</ion-content>
