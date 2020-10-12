@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>企业服务</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div [style.background-image]="'url('+uploadpath+'resource/'+res.page1+')'" style="background-size:100% 100%; "
+    class="bg1">
+
+    <div class="all">
+      <div class="block flex-row column">
+
+        <div class="flex-row flex-center">
+          <img src="{{uploadpath}}resource/{{res.logo}}" class="logo" />
+          <div class="tiao2 margin-left-40"></div>
+          <div class="margin-left-40">企业代码</div>
+        </div>
+        <div class="flex-1"></div>
+
+        <div class="flex-row flex-center">
+          <img src="{{uploadpath}}resource/{{res.qiyedaima}}" class="icon-17" />
+          <div class="tiao margin-left-20"></div>
+          <input class="h5 margin-left-20  " style="border: 0;" type="text" placeholder="请输入6位企业代码">
+        </div>
+
+      </div>
+
+      <div style="" class="  btn margin-40 text-center txt-white">确认提交</div>
+    </div>
+
+  </div>
+
+
+
+</ion-content>

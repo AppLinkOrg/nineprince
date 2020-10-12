@@ -7,6 +7,10 @@ const routes: Routes = [
   { path: 'tab1', loadChildren: './tab1/tab1.module#Tab1PageModule' },
   { path: 'tab2', loadChildren: './tab2/tab2.module#Tab2PageModule' },
   { path: 'tab3', loadChildren: './tab3/tab3.module#Tab3PageModule' },   { path: 'yuyue', loadChildren: './yuyue/yuyue.module#YuyuePageModule' },
+  { path: 'bangdin', loadChildren: './bangdin/bangdin.module#BangdinPageModule' }, 
+  { path: 'mine', loadChildren: './mine/mine.module#MinePageModule' },
+  { path: 'shudaima', loadChildren: './shudaima/shudaima.module#ShudaimaPageModule' },
+
 
 ];
 @NgModule({

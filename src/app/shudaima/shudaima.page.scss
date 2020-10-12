@@ -1,0 +1,50 @@
+.ion-content{
+    background: #d4cdcd;
+}
+.bg1{
+    width: 100%;
+    height: 330px;
+    position: relative;
+    
+}
+.all{
+    position: absolute;
+    top: 192px;
+    width: 100%;
+    z-index: 10;
+}
+.block{
+    height: 167px;
+    background: white;
+    margin: 38px;
+    border-radius: 8px; 
+    padding: 30px;
+    border: 1px solid rgb(248, 248, 248);
+    
+}
+.logo{
+    width: 107px;
+    height: 43px;
+}
+.tiao{
+    width: 1px;
+height: 9px;
+opacity: 0.22;
+background: #000000;
+}
+.tiao2{
+    width: 2px;
+height: 20px;
+background: #dddddd;
+}
+.btn{
+   
+height: 44px;
+line-height: 44px;
+background: linear-gradient(#59c69c 0%, #89d464 100%);
+border-radius: 4px;
+}
+input{
+    outline: none;
+    border: none; 
+   }
