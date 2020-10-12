@@ -1,21 +1,22 @@
-import { Component, NgZone, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
 import { AppBase } from '../AppBase';
 import { Router } from '@angular/router';
-import {  ActivatedRoute, Params } from '@angular/router';
-import { NavController, ModalController, ToastController, AlertController, NavParams,IonSlides } from '@ionic/angular';
+import { ActivatedRoute, Params } from '@angular/router';
+import { NavController, ModalController, ToastController, AlertController, NavParams, IonSlides } from '@ionic/angular';
 import { AppUtil } from '../app.util';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MemberApi } from 'src/providers/member.api'; 
-import { ClientApi } from 'src/providers/client.api';
+import { MemberApi } from 'src/providers/member.api';
+import { InstApi } from 'src/providers/inst.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-yuyue',
-  templateUrl: './yuyue.component.html',
-  styleUrls: ['./yuyue.component.scss'],
-  providers:[MemberApi,ClientApi,AliyunApi]
+  templateUrl: './yuyue.page.html',
+  styleUrls: ['./yuyue.page.scss'],
+  providers:[MemberApi]
 })
-export class YuyueComponent extends AppBase {
+export class YuyuePage extends AppBase {
 
   constructor(public zone:NgZone, public router: Router, 
     public navCtrl: NavController,
@@ -24,22 +25,21 @@ export class YuyueComponent extends AppBase {
     public alertCtrl: AlertController,
     public activeRoute: ActivatedRoute,
     public sanitizer: DomSanitizer,
-    public memberApi:MemberApi, 
-    public clientApi:ClientApi,
-    public aliyunApi:AliyunApi,
+    public memberApi:MemberApi,  
     ) {
     super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone);
       
   }
-  onMyLoad(){
-    this.params;
-  }
-   
-  onMyShow() {
-    var that = this;
-  
 
+
+  onMyLoad(e=undefined) {
+    this.params;
+    var that = this; 
   }
  
+   
+  onMyShow() {
+     
+  }
  
 }
