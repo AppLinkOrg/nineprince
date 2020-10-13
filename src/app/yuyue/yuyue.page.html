@@ -1,9 +1,158 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>yuyue</ion-title>
+    <ion-title>预约理疗服务</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+
+  <div class="flex-row flex-center margin-top-20"> 
+    <div class="flex-1"></div>
+    <ion-segment (ionChange)="segmentChanged($event)" class="yuyue" value="a">
+      <ion-segment-button value="a">
+        <ion-label>时间优先</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="b">
+        <ion-label>技师优先</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="flex-1"></div> 
+  </div>
+
+<div class="" *ngIf='checked=="a"'>
+
+  <div class="block padding-40">
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">日期</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗日期">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">时段</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗时间">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">区域</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择地点">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">项目</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择项目">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">技师</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择技师">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+  </div>
+  
+  <div class="block padding-40">
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">员工工号</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请填写员工工号"> 
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">手机号</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请填写手机号"> 
+    </div>
+  
+  </div>
+
+  <div style="" class="  btn margin-40 text-center txt-white">确认预约</div>
+
+</div>
+
+<div class="" *ngIf='checked=="b"'>
+
+  <div class="block padding-40">
+
+ 
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">技师</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择技师">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+
+    <div class="bottom"></div>
+
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">项目</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择项目">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">区域</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择地点">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+ 
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">日期</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗日期">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">时段</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗时间">
+      <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
+    </div>
+
+
+  </div>
+  
+  <div class="block padding-40">
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">员工工号</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请填写员工工号"> 
+    </div>
+
+    <div class="bottom"></div>
+
+    <div class="flex-row flex-center padding-bottom-30 "  > 
+      <div class="flex-1">手机号</div>
+      <input class="h5   " style="border: 0;" type="text" placeholder="请填写手机号"> 
+    </div>
+  
+  </div>
+
+  <div style="" class="  btn margin-40 text-center txt-white">确认预约</div>
+
+</div>
+  
+
+
 
 </ion-content>

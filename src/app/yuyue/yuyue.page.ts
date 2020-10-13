@@ -31,6 +31,12 @@ export class YuyuePage extends AppBase {
       
   }
 
+  checked="a";
+
+  segmentChanged(ev: any) {
+    console.log('选中的', ev.detail.value);
+    this.checked=ev.detail.value;
+  }
 
   onMyLoad(e=undefined) {
     this.params;

@@ -1,9 +1,67 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>mine</ion-title>
+    <ion-title>个人中心</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <div [style.background-image]="'url('+uploadpath+'resource/'+res.bg2+')'" style="background-size:100% 100%; "
+    class="bg1">
+
+    <div class="all">
+
+      <div [style.background-image]="'url('+uploadpath+'resource/'+res.bg3+')'" style="background-size:100% 100%; "
+        class="bg2">
+
+        <div class="block2 flex-row flex-column">
+
+          <img src="{{uploadpath}}resource/{{res.logo}}" class="headimg radius-50">
+
+          <div class="txt-bold margin-top-10">大约在个锤子</div>
+          <div class="flex-row flex-center margin-top-10">
+            <div class="h5" style="opacity: 0.4;">修改个人资料</div>
+            <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-10">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg3 margin-top">
+
+        <div class="block3 flex-row flex-center ">
+          <img src="{{uploadpath}}resource/{{res.wddd}}" class="icon-30">
+          <div class="margin-left-10 flex-1">我的订单</div>
+          <img src="{{uploadpath}}resource/{{res.right}}" class="right">
+        </div>
+
+        <div class="block3 flex-row flex-center margin-top-20">
+          <img src="{{uploadpath}}resource/{{res.grqb}}" class="icon-30">
+          <div class="margin-left-10 flex-1">个人钱包</div>
+          <img src="{{uploadpath}}resource/{{res.right}}" class="right">
+        </div>
+
+        <div class="block3 flex-row flex-center margin-top-20 ">
+          <img src="{{uploadpath}}resource/{{res.jkwz}}" class="icon-30">
+          <div class="margin-left-10 flex-1">健康文章</div>
+          <img src="{{uploadpath}}resource/{{res.right}}" class="right">
+        </div>
+
+        <div class="block3 flex-row flex-center margin-top-20 ">
+          <img src="{{uploadpath}}resource/{{res.bdsb}}" class="icon-30">
+          <div class="margin-left-10 flex-1">绑定社保卡</div>
+          <img src="{{uploadpath}}resource/{{res.right}}" class="right">
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+  </div>
 
 </ion-content>

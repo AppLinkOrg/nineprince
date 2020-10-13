@@ -1,15 +1,15 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar color='zhuti'>
-    <ion-title>袋鼠家政</ion-title>
+    <ion-title>主页</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
   (ionScrollEnd)="logScrollEnd()">
 
-  <img src="{{uploadpath}}resource/{{res.xqfb}}" class="imgs">
 
-  <div class="xuqiu">
+
+  <!-- <div class="xuqiu">
 
 
     <div class="h5"><span class="txt-red h5">*</span>您需要阿姨住在家里吗？(单选)</div>
@@ -49,7 +49,7 @@
           <option value="{{item.name}}" *ngFor="let item of qu" class="h5">{{item.name}}</option>
         </select>
 
-        <!-- <img src="{{uploadpath}}resource/{{res.right}}" class="icon"> -->
+         
       </div>
 
 
@@ -105,8 +105,7 @@
         照顾老人</div>
     </div>
 
-
-    <!-- 做家务 -->
+ 
     <div class="" *ngIf="zsm==1">
 
       <div class="h5 margin-top">口味要求(多选)</div>
@@ -128,8 +127,7 @@
       </div>
 
     </div>
-
-    <!-- 照顾小孩 -->
+ 
     <div class="" *ngIf="zsm==2">
 
       <div class="flex-row flex-center margin-top">
@@ -148,8 +146,7 @@
       </div>
 
     </div>
-
-    <!-- 照顾老人 -->
+ 
     <div class="" *ngIf="zsm==3">
 
       <div class="margin-top flex-row flex-center">
@@ -206,8 +203,7 @@
         性格</div>
     </div>
 
-
-    <!-- 经验 -->
+ 
     <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==1">
       <div *ngFor="let item of experiencelist;let i=index"
         class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
@@ -215,7 +211,7 @@
         {{item.name}}</div>
     </div>
 
-    <!-- 年龄 -->
+ 
     <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==2">
       <div *ngFor="let item of agelist;let i=index"
         class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
@@ -223,7 +219,7 @@
         {{item.name}}</div>
     </div>
 
-    <!-- 籍贯 -->
+ 
     <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==3">
       <div *ngFor="let item of provincelist;let i=index"
         class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
@@ -231,7 +227,7 @@
         {{item.name}}</div>
     </div>
 
-    <!-- 学历 -->
+ 
     <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==4">
       <div *ngFor="let item of xuelilist;let i=index"
         class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
@@ -239,7 +235,7 @@
         {{item.name}}</div>
     </div>
 
-    <!-- 性格 -->
+ 
     <div class="flex-row flex-center margin-top flex-wrap" *ngIf="fl==5">
       <div *ngFor="let item of xinggelist;let i=index"
         class="padding-10  margin-10 radius-10 h5 {{item.check==true?'bg-green txt-white':'bg-gray'}}"
@@ -318,15 +314,49 @@
      
     </div>
 
-  </div>
-
-  <!-- <div class="flex-row flex-column">
-    <div (click)="submit()" class="btns h5">提交</div>
   </div> -->
 
-  <!-- <div style="height: 100px;"></div> -->
 
+  <ion-slides pager="true">
+
+    <ion-slide *ngFor='let item of indexbanner;let i=index;'>
+      <img src="{{uploadpath}}indexbanner/{{item.img}}" style="height: 212px;width: 100%;">
+    </ion-slide>
+  </ion-slides>
+
+
+  <div class="padding-left-30 margin-top-10">
+
+    <div class="flex-row flex-center ">
+
+      <div class="block  flex-1 "> 
+        <img src="{{uploadpath}}resource/{{res.llyy}}" class="img">
+        <div class="margin-top-10">理疗预约</div>
+      </div>
   
+      <div class="block flex-1 "> 
+        <img src="{{uploadpath}}resource/{{res.lfyy}}" class="img">
+        <div class="margin-top-10">理发预约</div>
+      </div>
+  
+    </div>
+
+    <div class="flex-row flex-center ">
+
+      <div class="block  flex-1 "> 
+        <img src="{{uploadpath}}resource/{{res.tjyy}}" class="img">
+        <div class="margin-top-10">体检预约</div>
+      </div>
+  
+      <div class="block flex-1 "> 
+        <img src="{{uploadpath}}resource/{{res.grzx}}" class="img">
+        <div class="margin-top-10">个人中心</div>
+      </div>
+  
+    </div>
+    
+  </div>
+
 
 
 

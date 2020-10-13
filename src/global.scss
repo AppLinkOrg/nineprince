@@ -45,8 +45,8 @@
   border:1px solid red;
 } */
 
-ion-content {
-    background: #f5f5f5;
+ion-content{
+    --background: #f5f5f5;
 }
 
 .clear-contact {
@@ -239,7 +239,7 @@ textarea {
 }
 
 .txt-gray {
-    color: #aaa;
+    color: #C1C1C1;
 }
 
 .txt-blue {
