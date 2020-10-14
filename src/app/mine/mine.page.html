@@ -18,7 +18,7 @@
 
           <img src="{{uploadpath}}resource/{{res.logo}}" class="headimg radius-50">
 
-          <div class="txt-bold margin-top-10">大约在个锤子</div>
+          <div class="txt-bold margin-top-10">{{MemberInfo.name}}</div>
           <div class="flex-row flex-center margin-top-10">
             <div class="h5" style="opacity: 0.4;">修改个人资料</div>
             <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-10">
@@ -29,7 +29,7 @@
 
       <div class="bg3 margin-top">
 
-        <div class="block3 flex-row flex-center ">
+        <div class="block3 flex-row flex-center "  routerLink='/orderlist'>
           <img src="{{uploadpath}}resource/{{res.wddd}}" class="icon-30">
           <div class="margin-left-10 flex-1">我的订单</div>
           <img src="{{uploadpath}}resource/{{res.right}}" class="right">

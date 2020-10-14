@@ -16,18 +16,18 @@
     <div class="block  ">
 
       <div>姓名</div>
-      <input class="h5   margin-top padding-bottom-10" style="border-bottom: 1px solid #DCDCDC;width: 100%;" type="text" placeholder="请输入姓名">
+      <input [(ngModel)]='name' class="h5   margin-top padding-bottom-10" style="border-bottom: 1px solid #DCDCDC;width: 100%;" type="text" placeholder="请输入姓名">
 
       
       <div class=" margin-top">手机号</div>
-      <input class="h5  margin-top padding-bottom-10" style="border-bottom: 1px solid #DCDCDC;width: 100%;" type="text" placeholder="请输入手机号码">
+      <input [(ngModel)]='mobile' class="h5  margin-top padding-bottom-10" style="border-bottom: 1px solid #DCDCDC;width: 100%;" type="text" placeholder="请输入手机号码">
 
       
       <div class=" margin-top">工号</div>
-      <input class="h5   margin-top padding-bottom-10" style="border: 0" type="text" placeholder="请输入工号">
+      <input [(ngModel)]='gonghao'  class="h5  margin-top padding-bottom-10" style="border: 0" type="text" placeholder="请输入工号">
     </div>
 
-    <div style="" class="  btn margin-40 text-center txt-white">账号绑定</div>
+    <div style="" class="  btn margin-40 text-center txt-white" (click)='register()'>账号绑定</div>
     <div class="h6 margin-top text-center">用于接收预约，参检及体检报告信息</div>
   
   </div>

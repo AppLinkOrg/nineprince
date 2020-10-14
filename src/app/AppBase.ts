@@ -60,12 +60,7 @@ export class AppBase implements OnInit, OnDestroy {
         orderneedknow: "", name: "", logo: "", memberlogo: "", undershipping: 0,
         shippingfee: 0, about1: "", about2: "", about3: "", about4: "", about5: ""
     };
-    public MemberInfo = {
-        integral: 0, dfkorder: 0, ypborder: 0,
-        dpjorder: 0, dshorder: 0, canhexiao: "N",
-        tuiguanshouyi: 0, mobile: "", id: 0, avatarUrl: "", nickName: "",
-        h5openid: "", unionid: "", citylist: []
-    };
+    public MemberInfo = {  mobile: "", id: 0, name: "", gonghao: ""};
     public static MYBABY = [];
     public mybaby = [];
     public options = null;
@@ -75,7 +70,7 @@ export class AppBase implements OnInit, OnDestroy {
 
     public static jump = true;
 
-    public keyt = "MemberInfo09";
+    public keyt = "MemberInfo";
     public stat = "stat91";
 
     public heading = "学榜";
@@ -128,10 +123,9 @@ export class AppBase implements OnInit, OnDestroy {
         }
         AppBase.STATICRAND = stat;
 
-        var MemberInfo = window.localStorage.getItem(this.keyt);
-
-
-
+        var MemberInfo = window.sessionStorage.getItem(this.keyt);
+        //console.log(MemberInfo,'瞧瞧这个')
+ 
         if (MemberInfo != null) {
             AppBase.MemberInfo = JSON.parse(MemberInfo);
         }
@@ -148,6 +142,7 @@ export class AppBase implements OnInit, OnDestroy {
         this.getResources();
         this.getInstInfo();
         this.onMyLoad();
+        this.getMemberInfo();
         this.setStatusBar();
     }
     onMyLoad() {
@@ -186,13 +181,14 @@ export class AppBase implements OnInit, OnDestroy {
         console.log("牛逼了");
         console.log("11111");
 
-        AppBase.memberapi.info({}).then((MemberInfo) => {
-            if (MemberInfo == null || MemberInfo.mobile == undefined || MemberInfo.mobile == "") {
-                //alert("?");
-                MemberInfo = null;
-            }
-            this.MemberInfo = MemberInfo;
-        });
+        this.MemberInfo=AppBase.MemberInfo;
+        // AppBase.memberapi.info({}).then((MemberInfo) => {
+        //     if (MemberInfo == null || MemberInfo.mobile == undefined || MemberInfo.mobile == "") {
+                
+        //         MemberInfo = null;
+        //     }
+        //     this.MemberInfo = MemberInfo;
+        // });
     }
     shouye() {
 

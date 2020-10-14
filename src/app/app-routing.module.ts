@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: 'tab3', loadChildren: './tab3/tab3.module#Tab3PageModule' },   { path: 'yuyue', loadChildren: './yuyue/yuyue.module#YuyuePageModule' },
   { path: 'bangdin', loadChildren: './bangdin/bangdin.module#BangdinPageModule' }, 
   { path: 'mine', loadChildren: './mine/mine.module#MinePageModule' },
-  { path: 'shudaima', loadChildren: './shudaima/shudaima.module#ShudaimaPageModule' },
+  { path: 'shudaima', loadChildren: './shudaima/shudaima.module#ShudaimaPageModule' },  { path: 'dindanqueren', loadChildren: './dindanqueren/dindanqueren.module#DindanquerenPageModule' },
+  { path: 'orderlist', loadChildren: './orderlist/orderlist.module#OrderlistPageModule' },
+
 
 
 ];

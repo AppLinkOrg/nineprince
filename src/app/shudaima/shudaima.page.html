@@ -22,12 +22,12 @@
         <div class="flex-row flex-center">
           <img src="{{uploadpath}}resource/{{res.qiyedaima}}" class="icon-17" />
           <div class="tiao margin-left-20"></div>
-          <input class="h5 margin-left-20  " style="border: 0;" type="text" placeholder="请输入6位企业代码">
+          <input class="h5 margin-left-20  " style="border: 0;" type="text" [(ngModel)]='daima' placeholder="请输入6位企业代码">
         </div>
 
       </div>
 
-      <div style="" class="  btn margin-40 text-center txt-white">确认提交</div>
+      <div style="" class="  btn margin-40 text-center txt-white" (click)='yanzheng()'>确认提交</div>
     </div>
 
   </div>

@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MemberApi } from 'src/providers/member.api'; 
 import { ClientApi } from 'src/providers/client.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
+import { ApiConfig } from '../api.config';
 
 @Component({
   selector: 'app-bangdin',
@@ -31,6 +32,9 @@ export class BangdinPage extends AppBase {
     super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone);
       
   }
+  name='';
+  mobile='';
+  gonghao='';
   onMyLoad(){
     this.params;
   }
@@ -41,5 +45,56 @@ export class BangdinPage extends AppBase {
 
   }
   
+  register(){
+    console.log(this.name);
+    console.log(this.mobile);
+    console.log(this.gonghao);
+    // return;
+    if(this.name==''){
+      this.showAlert('请输入姓名');
+     return;
+    }
+    if(this.mobile==''){
+      this.showAlert('请输入手机号码');
+     return;
+    }
+    if(this.gonghao==''){
+      this.showAlert('请输入工号');
+     return;
+    }
+    this.memberApi.register({ name: this.name, mobile:this.mobile,gonghao:this.gonghao,status:'A'}).then((res: any) => {  
+      console.log(res,'多少');
+      if(res.code==0){
+        console.log(res,"昆仑决");  
+        this.memberApi.login({ name: this.name, mobile:this.mobile,gonghao:this.gonghao}).then((res: any) => {  
+
+
+          var token=res.return;
+
+            window.localStorage.setItem("lastname",this.name); 
+            window.localStorage.setItem("lastmobile",this.mobile);
+            window.localStorage.setItem("lastgonghao",this.gonghao);
+
+            window.sessionStorage.setItem("token",token);
+
+            ApiConfig.SetToken(token);
+            this.memberApi.info({id:res.result}).then((info: any) => {
+              window.sessionStorage.setItem("MemberInfo",JSON.stringify(info));
+              //this.navigate("/");
+
+              window.location.href="/";
+              console.log(info,'信息')
+          })
+
+
+          // this.navigate("/home")
+        })
+        //this.navigate("/home")
+      }else{
+        this.showAlert("提交失败请重新提交");
+      }
+
+    })
+  }
  
 }
