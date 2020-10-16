@@ -2,7 +2,7 @@ import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgZone 
 import { AppBase } from '../AppBase';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
-import { NavController, ModalController, ToastController, AlertController, NavParams, IonSlides } from '@ionic/angular';
+import { NavController, ModalController, ToastController, AlertController, NavParams, IonSlides,PickerController } from '@ionic/angular';
 import { AppUtil } from '../app.util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MemberApi } from 'src/providers/member.api';
@@ -18,19 +18,20 @@ import { isNgTemplate } from '@angular/compiler';
 })
 export class HomePage extends AppBase {
 
-  constructor(public zone: NgZone, public router: Router,
+  constructor(public zone:NgZone, public router: Router, 
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public activeRoute: ActivatedRoute,
+    public pickerController: PickerController,
     public sanitizer: DomSanitizer,
-    public instApi: InstApi,
-    public aliyunApi: AliyunApi,
-    public memberApi: MemberApi) {
-    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl, activeRoute, zone);
-    this.headerscroptshow = 480;
-
+    public memberApi:MemberApi,  
+    public aliyunApi:AliyunApi,
+    public instApi:InstApi,
+    ) {
+    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone,pickerController);
+      
   }
 
 

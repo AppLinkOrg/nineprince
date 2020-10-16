@@ -3,7 +3,7 @@ import { Component, NgZone, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA 
 import { AppBase } from '../AppBase';
 import { Router } from '@angular/router';
 import {  ActivatedRoute, Params } from '@angular/router';
-import { NavController, ModalController, ToastController, AlertController, NavParams,IonSlides } from '@ionic/angular';
+import { NavController, ModalController, ToastController, AlertController, NavParams, IonSlides,PickerController } from '@ionic/angular';
 import { AppUtil } from '../app.util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MemberApi } from 'src/providers/member.api'; 
@@ -25,36 +25,70 @@ export class DindanquerenPage extends AppBase {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public activeRoute: ActivatedRoute,
+    public pickerController: PickerController,
     public sanitizer: DomSanitizer,
-    public instApi: InstApi,
     public memberApi:MemberApi, 
     public clientApi:ClientApi,
     public aliyunApi:AliyunApi,
+    public instApi:InstApi,
     ) {
-    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone);
+    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone,pickerController);
       
   }
 
   indexbanner=[];
+  daijinquan=[];
+  orderinfo='';
+  checking='A';
   onMyLoad(){
     this.params;
 
-    this.instApi.indexbanner({ id: this.params.id }).then((indexbanner: any) => { 
-      for(var i=0;i<indexbanner.length;i++){
-        indexbanner[i].checked=false;
-      }
-      this.indexbanner = indexbanner;
-      console.log(indexbanner);
+    console.log(this.params.id,'传入的ID')
+
+    this.memberApi.orderinfo({ id: this.params.id }).then((orderinfo: any) => { 
+      this.orderinfo = orderinfo;
+      console.log(orderinfo);
     })
+
+
   }
    
   onMyShow() {
     var that = this;
-    
+
+    this.memberApi.daijinquan({ member_id: this.MemberInfo.id,status:'A' }).then((daijinquan: any) => { 
+      for(var i=0;i<daijinquan.length;i++){
+        daijinquan[i].checked=false;
+      }
+      this.daijinquan = daijinquan;
+      console.log(daijinquan);
+    })
 
   }
   checked(e){
-    console.log(e);
+    
+    this.checking=e.detail.value;
+    console.log(this.checking);
+  }
+
+  comfrim(price,quota){
+    if(this.checking=='A'){
+      console.log(price)
+        
+      this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+       console.log(info);
+       if(price>quota){
+        this.toast("余额不足");
+       }else{
+         this.navigate("orderlist")
+       }
+      })
+    }else if(this.checking=='B'){
+      console.log('微信支付')
+      this.navigate("orderlist");
+    }else{
+      console.log('代金券支付')
+    }
   }
   
  

@@ -1,6 +1,6 @@
 import { ApiConfig } from "./api.config";
 import { AppUtil } from "./app.util";
-import { NavController, ModalController, ToastController, NavParams, AlertController }
+import { NavController, ModalController, ToastController, NavParams, AlertController,PickerController }
     from "@ionic/angular";
 import { InstApi } from "../providers/inst.api";
 import { MemberApi } from "../providers/member.api";
@@ -105,10 +105,11 @@ export class AppBase implements OnInit, OnDestroy {
         public router: Router,
         public navCtrl: NavController,
         public modalCtrl: ModalController,
-        public toastCtrl: ToastController,
+        public toastCtrl: ToastController, 
         public alertCtrl: AlertController,
         public activeRoute: ActivatedRoute,
-        public zone: NgZone
+        public zone: NgZone,
+        public pickerController:PickerController
     ) {
 
         this.activeRoute.queryParams.subscribe((params: Params) => {
@@ -771,4 +772,46 @@ export class AppBase implements OnInit, OnDestroy {
     getPhoneNo() {
 
     }
+
+
+
+    // async openPicker(numColumns = 1, numOptions = 5, multiColumnOptions,callback) {
+    //     const picker = await this.pickerController.create({
+    //         columns: this.getColumns(numColumns, numOptions, multiColumnOptions),
+    //         buttons: [
+    //             {
+    //                 text: '取消',
+    //                 role: 'cancel'
+    //             },
+    //             {
+    //                 text: '确定',
+    //                 handler: value => {
+    //                     // console.log(`Got Value ${value}`);
+    //                     callback(JSON.stringify(value))
+    //                 }
+    //             }
+    //         ]
+    //     });
+    //     await picker.present();
+    // }
+    // getColumns(numColumns, numOptions, columnOptions) {
+    //     let columns = [];
+    //     for (let i = 0; i < numColumns; i++) {
+    //         columns.push({
+    //             name: `col-${i}`,
+    //             options: this.getColumnOptions(i, numOptions, columnOptions)
+    //         });
+    //     }
+    //     return columns;
+    // }
+    // getColumnOptions(columnIndex, numOptions, columnOptions) {
+    //     let options = [];
+    //     for (let i = 0; i < numOptions; i++) {
+    //         options.push({
+    //             text: columnOptions[columnIndex][i % numOptions],
+    //             value: i
+    //         });
+    //     }
+    //     return options;
+    // }
 }

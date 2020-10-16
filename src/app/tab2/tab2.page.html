@@ -1,154 +1,121 @@
 <ion-header>
-  <ion-toolbar  color='primary'>
-      <ion-buttons slot="start">
-        <ion-button (click)='back()'>
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>阿姨详情</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>个人钱包</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <div class="text-center margin-top txt-bold h4">{{humandetail.kehu_name}}</div>
-  <div class="flex-row margin-top">
-    <div > 
-    <img src="{{uploadpath}}human/{{humandetail.img}}" bindtap="divPhoto" id="{{uploadpath}}human/{{humandetail.img}}" class="margin-left-30 imgs" />
+  <div style="background: #3D3D3D;">
+
+    <div style="height:20px"></div>
+
+    <div class="flex-row flex-center  ">
+
+      <div class="flex-1"></div>
+      <div class="flex-row flex-column padding-10  " (click)='checked("A")'>
+        <div class="txt-white">在线支付</div>
+        <div class="tiao {{check=='A'?'bg1':''}} margin-top-10"></div>
+      </div>
+
+      <div class="flex-1"></div>
+
+      <div class="flex-row flex-column padding-10 " (click)='checked("B")'>
+        <div class="txt-white">兑换码兑换</div>
+        <div class="tiao  {{check=='B'?'bg1':''}} margin-top-10"></div>
+      </div>
+
+      <div class="flex-1"></div>
+
     </div>
-  
-    <div class="margin-left-40 width-500">
+
+    <div style="height:60px"></div>
+
+  </div>
+
+
+
+  <div class=' under '>
+
+
+
+    <div class="block2 padding-30 margin-30" [style.background-image]="'url('+uploadpath+'resource/'+res.qianbao+')'"
+      style="background-size:100% 100%; ">
+
       <div class="flex-row flex-center">
-        <div class="margin-right-10">{{humandetail.name}}</div>
-        <img src="{{uploadpath}}resource/{{humandetail.xinyong=='B'?res.xywu:(humandetail.xingge=='C'?res.xyyou:res.xyweicha)}}" class='icon-25 margin-right-10'/>
-        <img src="{{uploadpath}}resource/{{humandetail.shenfenyanzhen=='B'?res.sfyizhi:(humandetail.shenfenyanzhen=='C' ||humandetail.shenfenyanzhen=='E'?res.sfbuyizhi:res.sfweicha)}}" class='icon-25'/>
-        <div class="h5 margin-left-64">状态：{{humandetail.workstatus==''?'待业':humandetail.workstatus_name}}</div>
+        <img src="{{uploadpath}}resource/{{res.vip}}" class="icon-15 margin-left-10">
+
+        <div class="h6 txt-white margin-left-10">会员卡剩余额度（元）</div>
       </div>
-      <div class="h5 margin-top-20">年龄： {{humandetail.age}}</div>
-      <div class="h5">经验： {{humandetail.jingyan}}年</div>
-      <div class="h5">工种： {{humandetail.yixian_name}}</div>
+
+      <div class="h2 txt-white margin-top-10 margin-left-10">{{MemberInfo.quota}}</div>
+      <div class='height-20'></div>
     </div>
-  </div>
-  
-  <div class="size">
-    <div class="txt-black txt-bold margin-top-14 text-center">视频简介</div>
-  </div>
-  
-  <div class="margin-top-30 margin-left-30 margin-bottom-30">
-    <video src="{{uploadpath}}human/{{humandetail.video}}" class="icon-350 margin-left-30"></video>
-  </div>
-  
-  <div class="size">
-    <div class="txt-black txt-bold margin-top-14 text-center">基本信息</div>
-  </div>
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">籍贯： {{humandetail.city_provincecity}}</div>
-    <div class="flex-1 h5 txt-bold margin-left-80">属相： {{humandetail.genitals_name}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">民族：{{humandetail.nationality_name}}</div>
-    <div class=" h5 txt-bold flex-1 margin-left-80">学历： {{humandetail.xueli==''?'':humandetail.xueli_name}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">婚烟状况： {{humandetail.hunyin==''?"":humandetail.hunyin_name}}</div>
-    <div class="flex-1 h5 txt-bold margin-left-80">是否已育： {{humandetail.yiyu==''?"":humandetail.yiyu_name}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">身高（厘米）： {{humandetail.shengao}}</div>
-    <div class="flex-1 h5 txt-bold margin-left-80">体重（KG）： {{humandetail.weight}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">语言： {{humandetail.languagename}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">菜系： {{humandetail.cuisinename}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="flex-row margin-top-30">
-    <div class="margin-left-40 flex-1 h5 txt-bold">性格： {{humandetail.humanxingget}}</div>
-  </div>
-  <div class="border-bottom margin-top-30"></div>
-  
-  <div class="size">
-    <div class="txt-black txt-bold margin-top-14 text-center">工作经历</div>
-  </div>
-  <div *ngFor='let item of humandetail.work' >
-  
-    <div class="flex-row margin-top-30">
-      <div class="margin-left-40 flex-1 h5 txt-bold">时间： {{item.shijian+'-'+item.endtime}}</div>
-    </div>
-    <div class="border-bottom margin-top-30"></div>
-  
-    <div class="flex-row margin-top-30">
-      <div class="margin-left-40 flex-1 h5 txt-bold">地点： {{item.name}}</div>
-    </div>
-    <div class="border-bottom margin-top-30"></div>
-  
-    <div class="flex-row margin-top-30">
-      <div class="margin-left-40 flex-1 h5 txt-bold">服务对象： {{item.fuwu}}</div>
-    </div>
-    <div class="border-bottom margin-top-30"></div>
-  
-    <div class=" margin-top-30">
-      <div class="margin-left-40 flex-1 h5 txt-bold">工作内容： </div>
-      <div class="margin-left-40 h5 txt-bold margin-top-20">{{item.content}}</div>
-    </div>
-    <div class="border-bottom2 margin-top-30"></div>
-  
-  </div>
-  
-  
-  
-  <div class="size margin-top">
-    <div class="txt-black txt-bold margin-top-14 text-center">培训证书</div>
-  </div>
-  
-  <div class="margin-top-20 margin-left-30 margin-bottom-20">
-    <img src="{{uploadpath}}human/{{item.img}}" mode='heightFix' bindtap="divPhoto" id="{{uploadpath}}human/{{item.img}}" *ngFor='let item of humandetail.certificate' wx:key='k' class="icon-200"/>
-  </div>
-  
-  <div class="size">
-    <div class="txt-black txt-bold margin-top-14 text-center">体检报告</div>
-  </div>
-  
-  <div class="margin-top-20 margin-left-30 margin-bottom-20">
-    <img src="{{uploadpath}}human/{{item.img}}" mode='heightFix' bindtap="divPhoto" id="{{uploadpath}}human/{{item.img}}" *ngFor='let item of humandetail.baogao' wx:key='k' class="icon-200"/>
-  </div>
-  
-  <div class="size">
-    <div class="txt-black txt-bold margin-top-14 text-center">服务照片</div>
-  </div>
-  <div *ngFor='let item of humandetail.fuwu'>
-    <div class="flex-row margin-top margin-left-30">
-      <div class="margin-bottom-20">
-        <img src="{{uploadpath}}human/{{item.img}}" mode='widthFix' bindtap="divPhoto" id="{{uploadpath}}human/{{item.img}}" class="icon-200"/>
+
+    <div *ngIf="check=='A'">
+
+      <div class="flex-row flex-center margin-30" style="margin-bottom: 0;">
+        <div class="shu"></div>
+        <div class="margin-left-10">请选择充值金额</div>
       </div>
-      <div class="margin-left-20">
-        <div class="h5 txt-bold txt-black">描述：</div>
-        <div class="h5 t-color txt-bold margin-top-5">{{item.summary}}</div>
+
+      <div class=" ">
+
+        <div class="flex-row flex-center flex-wrap">
+
+
+          <div class="checkblock flex-row flex-column {{package==i?'checkbg1':'checkbg2'}}"
+            *ngFor="let item of packagelist;let i=index" (click)="checking(i)">
+            <div class="flex-row flex-bottom">
+              <div class="h3 {{package==i?'txt-orange':''}}">{{item.amount}}</div>
+              <div class="h6 {{package==i?'txt-orange':''}}">元</div>
+            </div>
+            <div class="h6  {{package==i?'txt-orange':''}}">充值送{{item.give_amount}}元</div>
+          </div>
+
+
+        </div>
+
+
+
+
+      </div>
+
+      <div class="flex-row flex-center margin-30" style="margin-bottom: 0;">
+        <div class="shu"></div>
+        <div class="margin-left-10">支付方式</div>
+      </div>
+
+      <div class="flex-row flex-center margin-30" style="margin-bottom: 0;">
+        <img src="{{uploadpath}}resource/{{res.weixin}}" class="weixin ">
+        <div class="margin-left-10">微信支付</div>
       </div>
     </div>
-    <div class="border-bottom"></div>
-  
-  </div>
-  <div class="height-100"></div>
-  <div class="size2 " >
-    <div class="flex-row margin-top-14 flex-column">
-      <div class="btns h5" (click)='jiaoru()'>加入候选</div>
-  
+
+
+    <div *ngIf="check=='B'" class="padding-30">
+
+       
+      <input [(ngModel)]='duihuan' class="duihuan padding-30" style=" width: 100%;" type="text" placeholder="请输入兑换码（区分大小写）">
+
+      <div style="height: 60px;"></div>
+
+      <div class="  btn   text-center txt-white">确认兑换</div>
     </div>
+
   </div>
-  
+
+  <div style="height: 100px;" *ngIf="check=='A'"></div>
+
+  <div class="bottom" *ngIf="check=='A'">
+
+    <div class="flex-row flex-center padding-30">
+
+      <div class="h6 flex-1">支付金额：</div>
+
+      <div class="h3 txt-orange">¥{{amount}}</div>
+    </div>
+    <div class="  btn margin-20 text-center txt-white">立即充值</div>
+  </div>
 
 </ion-content>

@@ -53,7 +53,7 @@
 
         <div class="flex-row flex-center "  >
           <div class="h5 flex-1  txt-bold">{{item.project_name}}</div> 
-          <div class="txt-orange txt-bold">¥{{item.price}}</div>
+          <div class="txt-orange txt-bold">¥{{item.project_price}}</div>
         </div>
 
         <div class="h6 margin-top txt-gray">{{item.project_duration}}分钟</div>
@@ -76,12 +76,12 @@
 
   </div>
 
-  
+
   
   <div style="height: 100px;"></div>
 
   <div class="bottom">
-    <div style="" class="  btn margin-20 text-center txt-white">返回会员中心</div>
+    <div style="" class="  btn margin-20 text-center txt-white" (click)='back()'>返回会员中心</div>
   </div>
   
 

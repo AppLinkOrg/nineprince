@@ -48,6 +48,23 @@ export class AppUtil {
         return v;
     }
 
+    public static switchTimeFormat (time) {
+        const dateTime = new Date(time)
+        const year = dateTime.getFullYear()
+        const month = dateTime.getMonth() + 1
+        const date = dateTime.getDate()
+        const hour = dateTime.getHours()
+        const minute = dateTime.getMinutes()
+        const second = dateTime.getSeconds()
+        return `${year}-${this.addZero(month)}-${this.addZero(date)}`
+    }
+    
+    public static addZero (v) {
+        return v < 10 ? '0' + v : v
+    }
+
+    
+
     public static ten2(i) {
         i = parseInt(i);
         if (i > 9) {

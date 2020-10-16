@@ -12,35 +12,35 @@
   
       <div class="flex-row flex-center padding-bottom-30 "  > 
         <div class="flex-1 h5">时间</div>
-        <div class="h5">2015 1516515 51</div>
+        <div class="h5">{{orderinfo.yuyueriqi}}  {{orderinfo.duration_id_name}}</div>
       </div>
   
       <div class="bottom"></div>
   
       <div class="flex-row flex-center padding-bottom-30 "  > 
         <div class="flex-1">地点</div>
-        <div class="h5">科技园</div>
+        <div class="h5">{{orderinfo.address_name}}</div>
       </div>
   
       <div class="bottom"></div>
   
       <div class="flex-row flex-center padding-bottom-30 "  > 
         <div  class="flex-1 h5">技师</div>
-        <div class="h5">张三</div>
+        <div class="h5">{{orderinfo.technician_name}}</div>
       </div>
   
       <div class="bottom"></div>
   
       <div class="flex-row flex-center padding-bottom-30 "  > 
         <div  class="flex-1 h5">套餐</div>
-        <div class="h5">全身打折</div>
+        <div class="h5">{{orderinfo.project_name}}</div>
       </div>
   
       <div class="bottom"></div>
   
       <div class="flex-row flex-center padding-bottom-30 "  > 
-        <div class="flex-1 h5">理疗费用合计</div>
-        <div class="txt-bold">¥5</div>
+        <div class="flex-1 h5">费用合计</div>
+        <div class="txt-bold">¥{{orderinfo.project_price}}</div>
       </div>
   
     </div>
@@ -52,10 +52,10 @@
       <ion-list>
         <ion-radio-group  (ionChange)='checked($event)' value='A'>
   
-          <ion-item  *ngFor="let item of indexbanner;let i=index;">
+          <ion-item  *ngFor="let item of daijinquan;let i=index;">
             
             <ion-radio [(value)]="item.id"></ion-radio>
-            <ion-label class="h5">{{item.id}}</ion-label>
+            <ion-label class="h5">{{item.name}}</ion-label>
           </ion-item>
 
           <ion-item >
@@ -80,7 +80,7 @@
     
     </div>
   
-    <div style="" class="  btn margin-40 text-center txt-white">确认支付</div>
+    <div style="" class="  btn margin-40 text-center txt-white" (click)="comfrim(orderinfo.project_price,MemberInfo.quota)">确认支付</div>
   
   </div>
 

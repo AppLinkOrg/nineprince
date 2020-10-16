@@ -1,70 +1,47 @@
 <ion-header>
-  <ion-toolbar color='primary'>
+  <ion-toolbar  >
     <ion-title>
-      选择阿姨
+      绑定社保卡
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content  >
 
+  <div [style.background-image]="'url('+uploadpath+'resource/'+res.shebao+')'" style="background-size:100% 100%; "
+    class="bg1">
 
-  <div class="flex-row flex-column margin-top" *ngIf='jzz==false && humanlist.length==0'>
-    <img src="{{uploadpath}}resource/{{res.wushuju}}"  class="icon-width"/>
-  </div>
-
-  <div class="flex-row flex-column margin-top-100" *ngIf='jzz==true'>
-    <img src="{{uploadpath}}resource/{{res.jiazai}}"  class="width" />
-  </div>
-
-  <div class="flex-row flex-wrap margin-left-30 margin-top " style="width:100%">
-    <div class="flex-row flex-column" >
-      <div *ngFor="let item of humanlist;let idx=index"  (click)="xiangqing(item.id)"  class="bg-white width margin-right-30 margin-bottom-30">
-        <div *ngIf='idx%2==0'>
-          <img src="{{uploadpath}}human/{{item.img}}"  class="icon-300 margin-left-15 margin-top-20 margin-right-15"/>
-          <div class="flex-row margin-top-10">
-            <div class="h4-5 txt-bold flex-1 margin-left-20 ">{{item.name}}</div>
-          </div>
-          <div class="flex-row margin-bottom-20 margin-top-10" >
-            <div class="h6 margin-left-20">{{item.jingyan}}</div>
-            <div class="flex-1"></div>
-            <div class="h6 margin-left-80 margin-right-30">{{item.age}}</div>
-          </div>
-          <div class="h6 margin-left-20 margin-bottom-20">{{item.yixian_name}}</div>
+    <div class="all">
     
-        </div>
-       
-      </div>
-    </div>
-    <div class="flex-row flex-column">
-      <div *ngFor="let item of humanlist;let idx=index"   (click)="xiangqing(item.id)"  class="bg-white width margin-right-30 margin-bottom-30">
-        <div *ngIf='idx%2!=0'>
-          <img src="{{uploadpath}}human/{{item.img}}"  class="icon-300 margin-left-15 margin-top-20 margin-right-15"/>
-          <div class="flex-row margin-top-10">
-            <div class="h4-5 txt-bold flex-1 margin-left-20 ">{{item.name}}</div>
-          </div>
-          <div class="flex-row margin-bottom-20 margin-top-10"  >
-            <div class="h6 margin-left-20">{{item.jingyan}}</div>
-            <div class="flex-1"></div>
-            <div class="h6 margin-left-80 margin-right-30">{{item.age}}</div>
-          </div>
-          <div class="h6 margin-left-20 margin-bottom-20">{{item.yixian_name}}</div>
 
+      <div class="block padding-40">
+
+        <div class="flex-row flex-center padding-bottom-30 "  > 
+          <div class="flex-1 h5">姓名</div>
+          <input class="h5   "  [(ngModel)]='name' style="border: 0;" type="text" placeholder="请填写姓名"> 
         </div>
-        
-  
+    
+        <div class="bottom"></div>
+    
+        <div class="flex-row flex-center padding-bottom-30 "  > 
+          <div class="flex-1 h5">手机号</div>
+          <input class="h5   "  [(ngModel)]='mobile' style="border: 0;" type="text" placeholder="请填写手机号"> 
+        </div>
+
+        <div class="bottom"></div>
+    
+        <div class="flex-row flex-center padding-bottom-30 "  > 
+          <div class="flex-1 h5">社保卡号</div>
+          <input class="h5   "  [(ngModel)]='shebao' style="border: 0;" type="text" placeholder="请输入社保卡号"> 
+        </div>
+      
       </div>
+
+     
+
+      <div style="" class="  btn margin-40 text-center txt-white" (click)="submit(MemberInfo.id)" >确认绑定</div>
     </div>
-  
-  
-  
+
   </div>
-  <div class='height-100'></div>
-  <div class="flex-row flex-center bg-white pof">
-    <div class="flex-1"></div>
-    <div class="btns" (click)='huanyi()'>换一批</div>
-    <div class="flex-1"></div>
-    <div class="btns" (click)='houxuan()'>候选列表</div>
-    <div class="flex-1"></div>
-  </div>
+ 
 </ion-content>

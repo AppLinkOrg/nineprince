@@ -1,19 +1,20 @@
-import { Component, NgZone, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
 import { AppBase } from '../AppBase';
 import { Router } from '@angular/router';
-import {  ActivatedRoute, Params } from '@angular/router';
-import { NavController, ModalController, ToastController, AlertController, NavParams,IonSlides } from '@ionic/angular';
+import { ActivatedRoute, Params } from '@angular/router';
+import { NavController, ModalController, ToastController, AlertController, NavParams, IonSlides,PickerController } from '@ionic/angular';
 import { AppUtil } from '../app.util';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MemberApi } from 'src/providers/member.api'; 
-import { HumanApi } from 'src/providers/human.api';
-import { ClientApi } from 'src/providers/client.api';
+import { MemberApi } from 'src/providers/member.api';
+import { InstApi } from 'src/providers/inst.api';
+import { AliyunApi } from 'src/providers/aliyun.api';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  providers:[MemberApi,HumanApi,ClientApi]
+  providers: [MemberApi, InstApi, AliyunApi]
 })
 export class Tab2Page extends AppBase {
 
@@ -23,70 +24,44 @@ export class Tab2Page extends AppBase {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public activeRoute: ActivatedRoute,
+    public pickerController: PickerController,
     public sanitizer: DomSanitizer,
-    public memberApi:MemberApi, 
-    public humanApi:HumanApi,
-    public clientApi:ClientApi,
+    public memberApi:MemberApi,  
     ) {
-    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone);
+    super(router, navCtrl, modalCtrl, toastCtrl, alertCtrl,activeRoute,zone,pickerController);
       
   }
-
-
+  
+  check='A';
+  packagelist=[];
+  package=null;
+  amount=0;
+  give_amount=0;
+  duihuan='';
   onMyLoad(e=undefined) {
     this.params;
     var that = this;
-    // this.params.jiedan_id='1';
-    console.log('onMyLoad-------');
-    this.jiedan_id=this.params.jiedan_id;
+    this.memberApi.packagelist({}).then((packagelist: any) => { 
+      this.packagelist = packagelist;
+      console.log(packagelist);
+    })
   }
-  jiedan_id=0;
-  humandetail={
-    kehu_name:'',
-    img:'',
-    name:'',
-    xinyong:'',
-    xingge:'',
-    shenfenyanzhen:'',
-    workstatus:'',
-    workstatus_name:'',
-    age:'',
-    jingyan:'',
-    yixian_name:'',
-    video:'',
-    city_provincecity:'',
-    genitals_name:'',
-    nationality_name:'',
-    xueli:'',
-    xueli_name:'',
-    hunyin:'',
-    hunyin_name:'',
-    yiyu:'',
-    yiyu_name:'',
-    shengao:'',
-    weight:'',
-    languagename:'',
-    cuisinename:'',
-    humanxingget:'',
-    work:[],
-    certificate:[],
-    baogao:[],
-    fuwu:[],
-  };
+ 
   onMyShow() {
-    this.humanApi.humandetail({ id: this.params.id }).then( (humandetail:any) => {
-      this.humandetail=humandetail;
-    })
+    
   }
-  jiaoru(){
-    this.clientApi.addhouxuan({
-      human_id:this.params.id,
-      jiedan_id:this.jiedan_id
-    }).then((addhouxuan)=>{
-      console.log(addhouxuan);
-      if(addhouxuan.code=='0'){
-        this.navigate("tab3",{jiedan_id:this.jiedan_id});
-      }
-    })
+  checked(type){
+    this.check=type;
+     
   }
+  checking(i){
+   this.package=i;
+   
+   this.amount=this.packagelist[i].amount;
+   this.give_amount=this.packagelist[i].give_amount;
+
+   console.log(this.amount,'充值金额');
+   console.log(this.give_amount,'赠送的金额');
+  }
+ 
 }
