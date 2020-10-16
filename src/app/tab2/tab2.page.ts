@@ -9,6 +9,7 @@ import { MemberApi } from 'src/providers/member.api';
 import { InstApi } from 'src/providers/inst.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
 import { isNgTemplate } from '@angular/compiler';
+declare let WeixinJSBridge: any; 
 
 @Component({
   selector: 'app-tab2',
@@ -59,9 +60,28 @@ export class Tab2Page extends AppBase {
    
    this.amount=this.packagelist[i].amount;
    this.give_amount=this.packagelist[i].give_amount;
-
+   
    console.log(this.amount,'充值金额');
    console.log(this.give_amount,'赠送的金额');
+  }
+
+  payment(){
+    var openid=localStorage.getItem("openid");
+    console.log(openid);
+    //return;
+    
+
+    this.memberApi.prepay({amount:this.amount,openid:openid}).then((prepay: any) => { 
+      console.log(prepay,'看看') 
+      //alert(JSON.stringify(prepay));
+      WeixinJSBridge.invoke("getBrandWCPayRequest", prepay, (res) => {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          // this.routeto("/success?order_id=" + this.order_id);
+        }
+      });
+
+      window.open(prepay.return);
+    })
   }
  
 }

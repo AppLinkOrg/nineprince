@@ -10,6 +10,8 @@ import { MemberApi } from 'src/providers/member.api';
 import { ClientApi } from 'src/providers/client.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
 import { InstApi } from 'src/providers/inst.api';
+import { HomePage } from '../home/home.page';
+declare let WeixinJSBridge: any; 
 
 @Component({
   selector: 'app-dindanqueren',
@@ -73,23 +75,57 @@ export class DindanquerenPage extends AppBase {
 
   comfrim(price,quota){
     if(this.checking=='A'){
-      console.log(price)
-        
+      console.log(price,'价格')
+      
       this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
-       console.log(info);
-       if(price>quota){
+       console.log(info,parseInt(price));
+       console.log(info.quota,'额度')
+
+       if(parseInt(price)>parseInt(info.quota)){
         this.toast("余额不足");
-       }else{
-         this.navigate("orderlist")
+       }else{ 
+          this.memberApi.updatestatus({ id:this.params.id}).then((res: any) => { 
+            this.navigate("orderlist")
+         })
+         //this.navigate("orderlist")
        }
       })
     }else if(this.checking=='B'){
       console.log('微信支付')
-      this.navigate("orderlist");
+     
+        var openid=window.sessionStorage.getItem("openid");
+        console.log(openid);
+        //return;
+  
+
+        this.memberApi.prepay({order_id:this.params.id,openid:openid}).then((prepay: any) => { 
+          console.log(prepay,'看看') 
+          //alert(JSON.stringify(prepay));
+          WeixinJSBridge.invoke("getBrandWCPayRequest", prepay, (res) => {
+            // alert(JSON.stringify(res));
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+              // window.location.href="/orderlist";
+              this.navigate("orderlist")
+            }
+          });
+
+          //window.open(prepay.return);
+        })
+     
+      
+      //this.loadwechat();
     }else{
       console.log('代金券支付')
     }
   }
-  
+
+
+  payment(){
  
+  }
+
+ 
+
+
+  
 }

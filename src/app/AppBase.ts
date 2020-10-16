@@ -112,6 +112,13 @@ export class AppBase implements OnInit, OnDestroy {
         public pickerController:PickerController
     ) {
 
+        var openid= window.sessionStorage.getItem("openid"); 
+        if(openid==null){
+            this.loadwechat();
+        }
+       
+        
+     
         this.activeRoute.queryParams.subscribe((params: Params) => {
             console.log(params);
             this.params = params;
@@ -145,9 +152,77 @@ export class AppBase implements OnInit, OnDestroy {
         this.onMyLoad();
         this.getMemberInfo();
         this.setStatusBar();
+ 
+        //var code= this.getUrlKey("code");
+       // console.log(code,'这次看看');
+        console.log(location.href,'链接看看')
     }
     onMyLoad() {
+       
     }
+
+     getCodeApi() { //获取code   
+        let urlNow = encodeURIComponent(window.location.href);
+        let scope = 'snsapi_base'; //snsapi_userinfo   //静默授权 用户无感知
+        let appid='wxed38866af330cfd8';
+        let state = "123";
+        let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${urlNow}&response_type=code&scope=${scope}&state=${state}#wechat_redirect`;
+    
+       //alert(url);
+        //console.log(url,"返回的链接")
+        window.location.href = url;
+      }
+
+      loadwechat() {
+        let viewer = window.navigator.userAgent.toLowerCase();
+     
+          //直接调用微信支付
+          let code = this.getUrlKey("code"); //获取url参数code
+          if (code) { //拿到code， code传递给后台接口换取opend
+            //alert(code);
+            
+            AppBase.memberapi.getwechatinfo({code:code}).then((res:any)=>{
+                console.log(res)
+                if (res.errcode == undefined) {
+                    //localStorage.setItem("openid", res.openid); 
+                    window.sessionStorage.setItem("openid", res.openid);
+                   
+                    // this.loadwechatconfig();
+                  }
+            })
+          } else {
+
+            this.getCodeApi();
+          }
+     
+      }
+
+      loadwechatconfig() {
+        AppBase.memberapi.gensign({url:location.href.split('#')[0]}).then((config:any)=>{
+           
+            var json = {
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: "wxed38866af330cfd8", // 必填，公众号的唯一标识
+                timestamp: config.timestamp, // 必填，生成签名的时间戳
+                nonceStr: config.nonceStr, // 必填，生成签名的随机串
+                signature: config.signature, // 必填，签名，见附录1
+                jsApiList: ['scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+              };
+              console.log("wxconfig",config, json);
+              wx.config(json);
+        })
+ 
+      }
+
+    getUrlKey(name) { //获取url 参数
+        //  alert(location.href)
+         let a=1/0;
+          return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+    }
+
+ 
+
+
     getInstInfo() {
         console.log(66666)
         if (AppBase.InstInfo == null) {
@@ -775,43 +850,5 @@ export class AppBase implements OnInit, OnDestroy {
 
 
 
-    // async openPicker(numColumns = 1, numOptions = 5, multiColumnOptions,callback) {
-    //     const picker = await this.pickerController.create({
-    //         columns: this.getColumns(numColumns, numOptions, multiColumnOptions),
-    //         buttons: [
-    //             {
-    //                 text: '取消',
-    //                 role: 'cancel'
-    //             },
-    //             {
-    //                 text: '确定',
-    //                 handler: value => {
-    //                     // console.log(`Got Value ${value}`);
-    //                     callback(JSON.stringify(value))
-    //                 }
-    //             }
-    //         ]
-    //     });
-    //     await picker.present();
-    // }
-    // getColumns(numColumns, numOptions, columnOptions) {
-    //     let columns = [];
-    //     for (let i = 0; i < numColumns; i++) {
-    //         columns.push({
-    //             name: `col-${i}`,
-    //             options: this.getColumnOptions(i, numOptions, columnOptions)
-    //         });
-    //     }
-    //     return columns;
-    // }
-    // getColumnOptions(columnIndex, numOptions, columnOptions) {
-    //     let options = [];
-    //     for (let i = 0; i < numOptions; i++) {
-    //         options.push({
-    //             text: columnOptions[columnIndex][i % numOptions],
-    //             value: i
-    //         });
-    //     }
-    //     return options;
-    // }
+ 
 }
