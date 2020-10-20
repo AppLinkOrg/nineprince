@@ -46,6 +46,6 @@ input::placeholder {
     background: linear-gradient(#59c69c 0%, #89d464 100%);  
     border-radius: 4px;
     }
-    ion-datetime{
-        --touch-action: none;
+    ion-datetime::placeholder{
+        color: #C1C1C1 !important; 
     }

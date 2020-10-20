@@ -80,7 +80,7 @@ export class BangdinPage extends AppBase {
 
             ApiConfig.SetToken(token);
             this.memberApi.info({id:res.result}).then((info: any) => {
-              window.sessionStorage.setItem("MemberInfo",JSON.stringify(info));
+              window.localStorage.setItem("MemberInfo",JSON.stringify(info));
               //this.navigate("/");
 
               window.location.href="/home";

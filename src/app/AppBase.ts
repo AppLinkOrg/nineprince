@@ -131,7 +131,7 @@ export class AppBase implements OnInit, OnDestroy {
         }
         AppBase.STATICRAND = stat;
 
-        var MemberInfo = window.sessionStorage.getItem(this.keyt);
+        var MemberInfo = window.localStorage.getItem(this.keyt);
         //console.log(MemberInfo,'瞧瞧这个')
  
         if (MemberInfo != null) {

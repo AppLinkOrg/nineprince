@@ -33,6 +33,7 @@ export class ShudaimaPage extends AppBase {
       
   }
   daima='';
+  showq='';
   onMyLoad(){
     this.params;
   }
@@ -46,14 +47,21 @@ export class ShudaimaPage extends AppBase {
       this.showAlert('请输入企业代码');
      return;
     }
+    //console.log(this.MemberInfo,'look');
+    // return;
     this.memberApi.qiyema({ qiyema: this.daima }).then((res: any) => {  
       console.log(res);
       if(res.code==0){
-        console.log("昆仑决");  
+        console.log("昆仑决",this.MemberInfo);  
         if(this.MemberInfo==null){
-          this.navigate("/bangdin")
+          console.log('跳绑定页面') 
+         // this.navigate("/bangdin")
+         window.location.href="/bangdin";
         }else{
-          this.navigate("/home")
+         // this.navigate("/home")
+         
+         window.location.href="/home";
+         console.log('跳首页')
         }
         
       }else{

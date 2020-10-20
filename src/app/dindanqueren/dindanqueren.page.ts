@@ -115,6 +115,9 @@ export class DindanquerenPage extends AppBase {
       
       //this.loadwechat();
     }else{
+      this.memberApi.updatestatus({ id:this.params.id}).then((res: any) => { 
+        this.navigate("orderlist")
+      })
       console.log('代金券支付')
     }
   }
