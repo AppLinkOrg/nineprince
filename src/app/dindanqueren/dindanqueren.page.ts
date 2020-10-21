@@ -73,7 +73,7 @@ export class DindanquerenPage extends AppBase {
     console.log(this.checking);
   }
 
-  comfrim(price,quota){
+  comfrim(price,quota,quan_id){
     if(this.checking=='A'){
       console.log(price,'价格')
       
@@ -116,7 +116,11 @@ export class DindanquerenPage extends AppBase {
       //this.loadwechat();
     }else{
       this.memberApi.updatestatus({ id:this.params.id}).then((res: any) => { 
-        this.navigate("orderlist")
+
+        this.memberApi.xiaohaoquan({ id:this.checking}).then((res: any) => { 
+          this.navigate("orderlist")
+        })
+ 
       })
       console.log('代金券支付')
     }

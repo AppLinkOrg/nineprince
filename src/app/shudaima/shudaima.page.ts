@@ -55,13 +55,12 @@ export class ShudaimaPage extends AppBase {
         console.log("昆仑决",this.MemberInfo);  
         if(this.MemberInfo==null){
           console.log('跳绑定页面') 
-         // this.navigate("/bangdin")
-         window.location.href="/bangdin";
+        this.navigate("/bangdin",{qiyema:this.daima})
+        
         }else{
-         // this.navigate("/home")
+         this.navigate("/home")
          
-         window.location.href="/home";
-         console.log('跳首页')
+   
         }
         
       }else{

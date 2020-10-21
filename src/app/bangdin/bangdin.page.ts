@@ -63,14 +63,17 @@ export class BangdinPage extends AppBase {
       this.showAlert('请输入工号');
      return;
     }
-    this.memberApi.register({ name: this.name, mobile:this.mobile,gonghao:this.gonghao,status:'A'}).then((res: any) => {  
-      console.log(res,'多少');
-      if(res.code==0){
-        console.log(res,"昆仑决");  
-        this.memberApi.login({ name: this.name, mobile:this.mobile,gonghao:this.gonghao}).then((res: any) => {  
+   // this.memberApi.register({ name: this.name, mobile:this.mobile,gonghao:this.gonghao,status:'A'}).then((res: any) => {  
+      
+      // if(res.code==0){
+        
+        this.memberApi.login({ name: this.name, mobile:this.mobile,gonghao:this.gonghao,qiyema:this.params.qiyema}).then((res: any) => {  
 
+          console.log(res);
 
-          var token=res.return;
+          if(res.code==0){
+
+            var token=res.return;
 
             window.localStorage.setItem("lastname",this.name); 
             window.localStorage.setItem("lastmobile",this.mobile);
@@ -81,21 +84,26 @@ export class BangdinPage extends AppBase {
             ApiConfig.SetToken(token);
             this.memberApi.info({id:res.result}).then((info: any) => {
               window.localStorage.setItem("MemberInfo",JSON.stringify(info));
-              //this.navigate("/");
+            
 
               window.location.href="/home";
               console.log(info,'信息')
           })
 
+          }else{
+            this.showAlert(res.result);
+          }
+ 
 
           // this.navigate("/home")
         })
-        //this.navigate("/home")
-      }else{
-        this.showAlert("提交失败请重新提交");
-      }
+        
+      // }else{
+      //   this.showAlert("提交失败请重新提交");
+      // }
 
-    })
+   // })
+
   }
  
 }
