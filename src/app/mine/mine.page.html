@@ -18,8 +18,8 @@
 
           <img src="{{uploadpath}}resource/{{res.logo}}" class="headimg radius-50">
 
-          <div class="txt-bold margin-top-10">{{MemberInfo.name}}</div>
-          <div class="flex-row flex-center margin-top-10">
+          <div class="txt-bold margin-top-10">{{name}}</div>
+          <div class="flex-row flex-center margin-top-10" (click)='toupdate(MemberInfo.id)'>
             <div class="h5" style="opacity: 0.4;">修改个人资料</div>
             <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-10">
           </div>

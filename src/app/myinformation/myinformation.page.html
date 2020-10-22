@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>修改个人资料</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="block padding-20"> 
+    <div class="flex-row flex-center padding-bottom-30 ">
+      <div class="flex-1">姓名</div>
+      <input class="h5   " [(ngModel)]='name' style="border: 0;" type="text" value="0" placeholder="请填写员工工号">
+    </div>
+  </div>
+
+  <div class="block padding-20"> 
+    <div class="flex-row flex-center padding-bottom-30 ">
+      <div class="flex-1">手机号</div>
+      <input class="h5   " [(ngModel)]='mobile' style="border: 0;" type="text" placeholder="请填写员工工号">
+    </div>
+  </div>
+
+  <div class="block padding-20"> 
+    <div class="flex-row flex-center padding-bottom-30 ">
+      <div class="flex-1">员工号</div>
+      <input class="h5   " [(ngModel)]='gonghao' style="border: 0;" type="text" placeholder="请填写员工工号">
+    </div>
+  </div>
+
+  <div style="" class="  btn margin-40 text-center txt-white" (click)="comfrim()">保存</div>
+
+</ion-content>

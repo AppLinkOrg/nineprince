@@ -236,6 +236,7 @@ submit(){
      this.mobile)
   
   this.memberApi.ordersubmit({
+    ordertype:this.params.type,
     member_id:this.MemberInfo.id,
     address_id:this.address_id,
     technician_id:this.technician_id,

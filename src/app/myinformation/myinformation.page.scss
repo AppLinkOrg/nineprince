@@ -1,0 +1,21 @@
+
+.block{
+    margin: 14px;
+background: #ffffff;
+border-radius: 8px;
+}
+input{
+    text-align: right;
+    outline: none;
+    border: none; 
+}
+input::placeholder { 
+    color: #C1C1C1 !important; 
+}
+.btn{
+  
+    height: 44px;
+    line-height: 44px;
+    background: linear-gradient(#59c69c 0%, #89d464 100%);  
+    border-radius: 4px;
+    }

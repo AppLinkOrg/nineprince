@@ -39,7 +39,7 @@
 
   </div>
 
-  <div class=""  *ngFor="let item of orderlist;let i=index;">
+  <div class="" *ngFor="let item of orderlist;let i=index;" routerLink='/dindanqueren' [queryParams]="{id:item.id}">
     <div class="flex-row flex-center padding-20 bg-white">
       <div class="h5 txt-gray flex-1">订单编号:{{item.orderno}}</div>
       <div class="h5 txt-gray">{{item.orderstatus_name}}</div>
@@ -51,8 +51,8 @@
 
       <div class=" margin-left-40 flex-1">
 
-        <div class="flex-row flex-center "  >
-          <div class="h5 flex-1  txt-bold">{{item.project_name}}</div> 
+        <div class="flex-row flex-center ">
+          <div class="h5 flex-1  txt-bold">{{item.project_name}}</div>
           <div class="txt-orange txt-bold">¥{{item.project_price}}</div>
         </div>
 
@@ -63,12 +63,12 @@
     </div>
 
     <div class="flex-row flex-center padding-20 bg-white">
-      <div class="h5 txt-gray flex-1">合计：¥{{item.price}}</div>
+      <div class="h5 txt-gray flex-1">合计：¥{{item.project_price}}</div>
 
 
       <div class="caozuo h5" *ngIf="item.orderstatus=='A'">付款</div>
- 
-      <div class="caozuo h5" *ngIf="item.orderstatus=='B'">取消</div> 
+
+      <!-- <div class="caozuo h5" *ngIf="item.orderstatus=='B'">取消</div>  -->
 
     </div>
 
@@ -77,12 +77,18 @@
   </div>
 
 
-  
+  <div class="text-center margin-top" *ngIf="orderlist.length==0">
+
+    <img src="{{uploadpath}}resource/{{res.zanwu}}" class="icon-100">
+    <div class="h5 txt-gray margin-top">暂无订单</div>
+  </div>
+
+
   <div style="height: 100px;"></div>
 
   <div class="bottom">
     <div style="" class="  btn margin-20 text-center txt-white" (click)='back()'>返回会员中心</div>
   </div>
-  
+
 
 </ion-content>

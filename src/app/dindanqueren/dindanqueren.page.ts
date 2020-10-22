@@ -11,6 +11,7 @@ import { ClientApi } from 'src/providers/client.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
 import { InstApi } from 'src/providers/inst.api';
 import { HomePage } from '../home/home.page';
+import { type } from 'os';
 declare let WeixinJSBridge: any; 
 
 @Component({
@@ -40,8 +41,9 @@ export class DindanquerenPage extends AppBase {
 
   indexbanner=[];
   daijinquan=[];
-  orderinfo='';
+  orderinfo=[];
   checking='A';
+  type='';
   onMyLoad(){
     this.params;
 
@@ -49,6 +51,7 @@ export class DindanquerenPage extends AppBase {
 
     this.memberApi.orderinfo({ id: this.params.id }).then((orderinfo: any) => { 
       this.orderinfo = orderinfo;
+      this.type=orderinfo.ordertype;
       console.log(orderinfo);
     })
 
@@ -57,8 +60,8 @@ export class DindanquerenPage extends AppBase {
    
   onMyShow() {
     var that = this;
-
-    this.memberApi.daijinquan({ member_id: this.MemberInfo.id,status:'A' }).then((daijinquan: any) => { 
+     
+    this.memberApi.daijinquan({ member_id: this.MemberInfo.id,status:'A',type:this.type}).then((daijinquan: any) => { 
       for(var i=0;i<daijinquan.length;i++){
         daijinquan[i].checked=false;
       }
@@ -84,7 +87,7 @@ export class DindanquerenPage extends AppBase {
        if(parseInt(price)>parseInt(info.quota)){
         this.toast("余额不足");
        }else{ 
-          this.memberApi.updatestatus({ id:this.params.id}).then((res: any) => { 
+          this.memberApi.updatestatus({ id:this.params.id,orderstatus:'B'}).then((res: any) => { 
             this.navigate("orderlist")
          })
          //this.navigate("orderlist")
@@ -95,16 +98,15 @@ export class DindanquerenPage extends AppBase {
      
         var openid=window.sessionStorage.getItem("openid");
         console.log(openid);
-        //return;
-  
+     
 
         this.memberApi.prepay({order_id:this.params.id,openid:openid}).then((prepay: any) => { 
           console.log(prepay,'看看') 
-          //alert(JSON.stringify(prepay));
+          
           WeixinJSBridge.invoke("getBrandWCPayRequest", prepay, (res) => {
-            // alert(JSON.stringify(res));
+           
             if (res.err_msg == "get_brand_wcpay_request:ok") {
-              // window.location.href="/orderlist";
+              
               this.navigate("orderlist")
             }
           });
@@ -115,7 +117,7 @@ export class DindanquerenPage extends AppBase {
       
       //this.loadwechat();
     }else{
-      this.memberApi.updatestatus({ id:this.params.id}).then((res: any) => { 
+      this.memberApi.updatestatus({ id:this.params.id,orderstatus:'B'}).then((res: any) => { 
 
         this.memberApi.xiaohaoquan({ id:this.checking}).then((res: any) => { 
           this.navigate("orderlist")
@@ -124,6 +126,21 @@ export class DindanquerenPage extends AppBase {
       })
       console.log('代金券支付')
     }
+  }
+
+  cancel(){
+    
+    this.showConfirm('确认取消订单？',(ret)=>{ 
+        if (ret == true) {
+          this.memberApi.updatestatus({ id:this.params.id,orderstatus:'D'}).then((res: any) => {
+            this.toast("取消成功") 
+            this.back();
+         })
+        }   
+    })
+    
+ 
+    
   }
 
 

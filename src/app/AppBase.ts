@@ -512,7 +512,7 @@ export class AppBase implements OnInit, OnDestroy {
                     confirmcallback(false);
                 }
             }, {
-                text: "好的",
+                text: "确定",
                 handler: () => {
                     confirmcallback(true);
                 }

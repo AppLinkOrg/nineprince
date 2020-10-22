@@ -45,7 +45,7 @@
   
     </div>
     
-    <div class="block padding-20">
+    <div class="block padding-20" *ngIf="orderinfo.orderstatus=='A'">
   
  
 
@@ -80,7 +80,9 @@
     
     </div>
   
-    <div style="" class="  btn margin-40 text-center txt-white" (click)="comfrim(orderinfo.project_price,MemberInfo.quota)">确认支付{{MemberInfo.quota}}</div>
+    <div style="" *ngIf="orderinfo.orderstatus=='A'" class="  btn margin-40 text-center txt-white" (click)="comfrim(orderinfo.project_price,MemberInfo.quota)">确认支付</div>
+
+    <div style="" *ngIf="orderinfo.orderstatus=='A'" class="  btn margin-40 text-center txt-white margin-top-20" (click)="cancel()">取消订单</div>
   
   </div>
 

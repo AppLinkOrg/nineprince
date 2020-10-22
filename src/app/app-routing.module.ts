@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'mine', loadChildren: './mine/mine.module#MinePageModule' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'dindanqueren', loadChildren: './dindanqueren/dindanqueren.module#DindanquerenPageModule' },
-  { path: 'orderlist', loadChildren: './orderlist/orderlist.module#OrderlistPageModule' },
+  { path: 'orderlist', loadChildren: './orderlist/orderlist.module#OrderlistPageModule' },  { path: 'myinformation', loadChildren: './myinformation/myinformation.module#MyinformationPageModule' },
+
 
 
 
