@@ -10,8 +10,7 @@ import { MemberApi } from 'src/providers/member.api';
 import { ClientApi } from 'src/providers/client.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
 import { InstApi } from 'src/providers/inst.api';
-import { HomePage } from '../home/home.page';
-import { type } from 'os';
+import { HomePage } from '../home/home.page'; 
 declare let WeixinJSBridge: any; 
 
 @Component({

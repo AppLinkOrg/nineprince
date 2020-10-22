@@ -40,28 +40,29 @@ export class ShudaimaPage extends AppBase {
    
   onMyShow() {
     var that = this;
-     
+    
   }
   yanzheng(){
     if(this.daima==''){
       this.showAlert('请输入企业代码');
      return;
     }
+    
     //console.log(this.MemberInfo,'look');
-    // return;
+     
     this.memberApi.qiyema({ qiyema: this.daima }).then((res: any) => {  
       console.log(res);
       if(res.code==0){
-        console.log("昆仑决",this.MemberInfo);  
-        if(this.MemberInfo==null){
-          console.log('跳绑定页面') 
-        this.navigate("/bangdin",{qiyema:this.daima})
         
-        }else{
-         this.navigate("/home")
+        this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+          console.log(info,"啦啦啦啦")
+          if (info==null) {
+            this.navigate("/bangdin",{qiyema:this.daima})
+          }else{
+            this.navigate("/home")
+          }
+        })
          
-   
-        }
         
       }else{
         this.showAlert(res.result);
