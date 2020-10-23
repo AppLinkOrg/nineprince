@@ -35,10 +35,21 @@ export class Tab1Page  extends AppBase {
   name='';
   mobile=''; 
   shebao='';
+  shebaoinfo=null;
   onMyLoad(e=undefined) {
     var that = this; 
     this.params;
-
+    this.setTitle("绑定社保卡")
+    this.memberApi.shebao({ member_id:this.params.id}).then((res: any) => {  
+   
+      if(res!=null){
+        this.name=res[0].name;
+        this.mobile=res[0].mobile;
+        this.shebao=res[0].cardid;
+      }
+      this.shebaoinfo=res[0];
+       
+    })
  
   }
 
@@ -60,15 +71,23 @@ export class Tab1Page  extends AppBase {
       this.showAlert('请输入社保卡号');
      return;
     }
-    this.memberApi.bangshebao({  member_id:member_id,name:this.name,mobile:this.mobile,cardid:this.shebao }).then((res: any) => {  
-      console.log(res);
-      if(res.code==0){
-         this.back();
-      }else{
-        this.showAlert(res.result);
-      }
 
-    })
+    if (this.shebaoinfo==null) {
+      this.memberApi.bangshebao({  member_id:member_id,name:this.name,mobile:this.mobile,cardid:this.shebao }).then((res: any) => {  
+        console.log(res);
+        if(res.code==0){
+           this.back();
+        }else{
+          this.showAlert(res.result);
+        } 
+      })
+    }else{
+      this.memberApi.update({  id:this.shebaoinfo.id,name:this.name,mobile:this.mobile,cardid:this.shebao,type:'A' }).then((res: any) => {  
+        console.log(res);  
+        this.showAlert("修改成功");
+      })
+    }
+
   }
  
 }

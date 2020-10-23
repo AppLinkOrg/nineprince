@@ -40,7 +40,7 @@ export class HomePage extends AppBase {
   onMyLoad(e = undefined) {
     //参数
     this.params;
-
+    
     this.instApi.indexbanner({ id: this.params.id }).then((indexbanner: any) => { 
       this.indexbanner = indexbanner;
       console.log(indexbanner);
@@ -51,9 +51,13 @@ export class HomePage extends AppBase {
 
 
   onMyShow() {
-
+    this.setTitle("企业服务")
 
   }
+
+  
+
+
 
   
 }

@@ -63,6 +63,18 @@ export class AppUtil {
         return v < 10 ? '0' + v : v
     }
 
+    public static formatDuring(mss) {
+		var days = parseInt((mss / (1000 * 60 * 60 * 24)).toString());
+		var hours = parseInt(((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString());
+		var minutes = parseInt(((mss % (1000 * 60 * 60)) / (1000 * 60)).toString());
+        var seconds = ((mss % (1000 * 60)) / 1000).toFixed(0);
+         
+         
+        console.log(seconds,'秒数');
+         
+		return  minutes + " 分钟 " + seconds + " 秒 ";
+    }
+
     
 
     public static ten2(i) {

@@ -70,11 +70,17 @@ export class YuyuePage extends AppBase {
 
   onMyLoad(e=undefined) {
     this.params;
+    this.setTitle("预约理疗服务")
     var that = this; 
   }
  
    
   onMyShow() {
+    this.memberApi.info({id:this.MemberInfo.id}).then((info: any) => { 
+          this.mobile=info.mobile;
+          this.gonghao=info.gonghao;
+    })
+
     this.memberApi.durationlist({}).then((durationlist: any) => { 
 
       for (let i = 0; i < durationlist.length; i++) {

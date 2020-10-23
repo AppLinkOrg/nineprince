@@ -39,17 +39,23 @@ export class Tab2Page extends AppBase {
   amount=0;
   give_amount=0;
   duihuan='';
+  quota=0;
+  zon=0;
   onMyLoad(e=undefined) {
     this.params;
+    this.setTitle("个人钱包")
     var that = this;
     this.memberApi.packagelist({}).then((packagelist: any) => { 
       this.packagelist = packagelist;
       console.log(packagelist);
     })
+    
   }
  
   onMyShow() {
-    
+    this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+      this.quota=info.quota;
+    })
   }
   checked(type){
     this.check=type;
@@ -58,29 +64,59 @@ export class Tab2Page extends AppBase {
   checking(i){
    this.package=i;
    
-   this.amount=this.packagelist[i].amount;
-   this.give_amount=this.packagelist[i].give_amount;
+   this.amount=parseInt(this.packagelist[i].amount);
+   this.give_amount=parseInt(this.packagelist[i].give_amount);
    
+   this.zon=this.amount+this.give_amount;
    console.log(this.amount,'充值金额');
    console.log(this.give_amount,'赠送的金额');
+   console.log(this.zon);
   }
+  
 
   payment(){
     var openid=localStorage.getItem("openid");
     console.log(openid);
-    //return;
-    
+   
+    // this.memberApi.chongzhi({
+    //   member_id:this.MemberInfo.id,
+    //   quota:this.zon, 
+    // }).then((res:any)=>{
+      
+    //   if (res.code==0) {
+    //     this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+    //       this.quota=info.quota;
+    //     })
+    //   }
+      
+    // })
 
-    this.memberApi.prepay({amount:this.amount,openid:openid}).then((prepay: any) => { 
-      console.log(prepay,'看看') 
-      //alert(JSON.stringify(prepay));
-      WeixinJSBridge.invoke("getBrandWCPayRequest", prepay, (res) => {
+    this.memberApi.prepay2({amount:this.amount,openid:openid}).then((prepay2: any) => { 
+      console.log(prepay2,'看看') 
+    
+      WeixinJSBridge.invoke("getBrandWCPayRequest", prepay2, (res) => {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-          // this.routeto("/success?order_id=" + this.order_id);
+
+          this.memberApi.chongzhi({
+            member_id:this.MemberInfo.id,
+            quota:this.zon, 
+          }).then((res:any)=>{
+
+            if (res.code==0) {
+              this.toast("充值成功!");
+              // this.onMyShow();
+              this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+                this.quota=info.quota;
+              })
+            }
+            
+          })
+          
+         
         }
       });
 
-      window.open(prepay.return);
+      
     })
   }
  

@@ -39,7 +39,7 @@ export class MyinformationPage extends AppBase {
   onMyLoad(){
    
     this.params;
-
+    this.setTitle("修改个人资料")
     this.memberApi.info({id:this.params.id}).then((info:any)=>{
       this.name=info.name;
       this.mobile=info.mobile;

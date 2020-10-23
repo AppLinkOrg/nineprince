@@ -38,7 +38,7 @@ export class MinePage extends AppBase {
   }
   onMyLoad(){
     this.params;
- 
+    this.setTitle("个人中心")
   }
   name='';
   

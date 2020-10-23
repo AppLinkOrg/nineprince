@@ -1,8 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>我的订单</ion-title>
-  </ion-toolbar>
-</ion-header>
+ 
 
 <ion-content>
 
@@ -67,7 +63,9 @@
 
 
       <div class="caozuo h5" *ngIf="item.orderstatus=='A'">付款</div>
+      <div class="caozuo h5 margin-left-10" *ngIf="item.orderstatus=='A'">取消</div>
 
+      <div class="caozuo h5 margin-left-10" *ngIf="item.orderstatus=='B'">完成</div>
       <!-- <div class="caozuo h5" *ngIf="item.orderstatus=='B'">取消</div>  -->
 
     </div>

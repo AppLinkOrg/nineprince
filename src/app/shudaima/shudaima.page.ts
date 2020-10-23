@@ -36,6 +36,7 @@ export class ShudaimaPage extends AppBase {
   showq='';
   onMyLoad(){
     this.params;
+    this.setTitle("企业服务")
   }
    
   onMyShow() {
@@ -43,32 +44,57 @@ export class ShudaimaPage extends AppBase {
     
   }
   yanzheng(){
+
     if(this.daima==''){
       this.showAlert('请输入企业代码');
      return;
     }
-    
-    //console.log(this.MemberInfo,'look');
-     
+    if (this.MemberInfo!=null) {
+      this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+
+        if(info.enterprise_code!=this.daima){
+          if(this.daima==''){
+            this.showAlert('请输入正确的企业代码');
+           return;
+          }
+        }else{
+          
+            this.navigate("/home")
+         
+        }
+        console.log(info.enterprise_code)
+    })
+  }else{
+ 
     this.memberApi.qiyema({ qiyema: this.daima }).then((res: any) => {  
       console.log(res);
       if(res.code==0){
-        
-        this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
-          console.log(info,"啦啦啦啦")
-          if (info==null) {
-            this.navigate("/bangdin",{qiyema:this.daima})
-          }else{
-            this.navigate("/home")
-          }
-        })
-         
-        
+
+        if(this.MemberInfo!=null){
+          this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
+            console.log(info,"啦啦啦啦")
+            if (info==null) {
+              this.navigate("/bangdin",{qiyema:this.daima})
+            }else{
+              this.navigate("/home")
+            }
+          })
+        }else{
+          this.navigate("/bangdin",{qiyema:this.daima})
+        }
+ 
       }else{
         this.showAlert(res.result);
       }
 
     })
+
+
+
+  }
+ 
+     
+
   }
   
  

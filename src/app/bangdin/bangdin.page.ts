@@ -38,6 +38,7 @@ export class BangdinPage extends AppBase {
   gonghao='';
   onMyLoad(){
     this.params;
+    this.setTitle("绑定手机")
   }
    
   onMyShow() {

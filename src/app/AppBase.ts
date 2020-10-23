@@ -848,7 +848,21 @@ export class AppBase implements OnInit, OnDestroy {
 
     }
 
-
+    setTitle(title) {
+        var iframe = document.createElement('iframe');
+      
+        iframe.style.display = 'none';
+        // iframe.src = 'blank.html';
+      
+        iframe.onload = function() {
+          setTimeout(function() {
+            document.body.removeChild(iframe);
+          }, 0);
+        };
+      
+        document.title = title;
+        document.body.appendChild(iframe);
+      }
 
  
 }

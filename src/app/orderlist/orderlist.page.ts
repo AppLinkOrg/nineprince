@@ -42,18 +42,27 @@ export class OrderlistPage extends AppBase {
   onMyLoad(e = undefined) {
     //参数
     this.params;
-
+    this.setTitle("我的订单")
     this.instApi.indexbanner({ id: this.params.id }).then((indexbanner: any) => { 
       this.indexbanner = indexbanner;
       console.log(indexbanner);
-    })
+    });
+ 
+    
 
    
  
   }
 
   onMyShow() {
-    this.order('A')
+    if(this.params.check!=null){
+      this.check=this.params.check;
+      this.order(this.params.check);
+    }else{
+      this.order(this.check);
+    }
+    
+    
   }
 
   checked(type){
