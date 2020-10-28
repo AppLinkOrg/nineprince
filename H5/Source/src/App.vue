@@ -15,6 +15,7 @@ export default {
   height: 18px;
 }
 div {
+  font-weight: 500;
 }
 
 
@@ -268,6 +269,12 @@ div {
 .f-26 {
   font-size: 26px;
 }
+.f-24 {
+  font-size: 24px;
+}
+.f-30 {
+  font-size: 30px;
+}
 .dot {
   width: 6px;
   height: 6px;
@@ -402,5 +409,12 @@ div {
 .txt-33 {
   color: #333333;
 }
+.height-04x {
+  height: 40px;
+}
+.height-08x {
+  height: 80px;
+}
+
 </style>
 

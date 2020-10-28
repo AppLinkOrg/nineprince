@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import wx from "weixin-jsapi"; 
+import Vant from 'vant';
+import 'vant/lib/index.css';
 import 'lib-flexible/flexible.js';
 
+Vue.use(Vant);
 
 Vue.prototype.wx = wx
 Vue.config.productionTip = false
