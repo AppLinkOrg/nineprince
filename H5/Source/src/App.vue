@@ -15,7 +15,6 @@ export default {
   height: 18px;
 }
 div {
-  font-weight: 500;
 }
 
 
@@ -82,6 +81,9 @@ div {
 }
 .margin-top-4x {
   margin-top: 40px;
+}
+.margin-top-5x {
+  margin-top: 50px;
 }
 
 .margin-left-1x {
@@ -161,6 +163,9 @@ div {
 .padding-left-4x {
   padding-left: 40px;
 }
+.padding-left-6x {
+  padding-left: 60px;
+}
 
 .padding-right-1x {
   padding-right: 10px;
@@ -174,7 +179,9 @@ div {
 .padding-right-4x {
   padding-right: 40px;
 }
-
+.padding-right-5x {
+  padding-right: 50px;
+}
 .padding-bottom-1x {
   padding-bottom: 10px;
 }
@@ -238,8 +245,17 @@ div {
 .bolder {
   font-weight: bolder;
 }
+.bolder-500 {
+  font-weight: 500;
+}
 .h1 {
   font-size: 44px;
+}
+.h-40 {
+  font-size: 40px;
+}
+.h-48 {
+  font-size: 48px;
 }
 .h2 {
   font-size: 28px;
@@ -341,6 +357,9 @@ div {
 .f-g2 {
   color: #819199;
 }
+.f-g100 {
+  color: #100F0F;
+}
 .f-w.el-link {
   color: white !important;
 }
@@ -416,5 +435,14 @@ div {
   height: 80px;
 }
 
+.bg-EEE {
+  background:#EEEEEE ;
+}
+.border-bottomEEE {
+  border-bottom: 1px solid #EEEEEE;
+}
+.txt-666 {
+  color: #666666;
+}
 </style>
 

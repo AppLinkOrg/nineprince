@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Setting from '@/components/Setting'
 import Tabs from '@/components/Tabs'
 
+import Sedetails from '@/components/Sedetails'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+ {
+      path: '/sedetails',
+      name: 'Sedetails',
+      component: Sedetails
     }
   ]
 })
