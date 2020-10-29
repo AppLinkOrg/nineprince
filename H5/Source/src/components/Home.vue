@@ -9,7 +9,7 @@
     </div>
 
 
-    <div class="margin-top bg-w " v-for='(item,index) of orderlist' :key='index'>
+    <div class="margin-top bg-w " v-for='(item,index) of orderlist' :key='index' @click="routeto('/sedetails?id='+item.id)">
         <div class="flex-row flex-center padd29">
           <div class="flex-1 txt-66 f-24">订单编号:{{item.orderno}}</div>
           <div class="txt-59 f-24">待服务</div>
