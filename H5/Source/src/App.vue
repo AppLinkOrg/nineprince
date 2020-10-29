@@ -49,7 +49,9 @@ div {
 .text-center {
   text-align: center;
 }
-
+.text-right {
+  text-align: right;
+}
 .text-right {
   text-align: right;
 }
@@ -124,7 +126,9 @@ div {
 .margin-bottom-4x {
   margin-bottom: 40px;
 }
-
+.margin-bottom-5x {
+  margin-bottom: 50px;
+}
 .padding-1x {
   padding: 10px;
 }
@@ -150,7 +154,9 @@ div {
 .padding-top-4x {
   padding-top: 40px;
 }
-
+.padding-top75 {
+  padding-top: 75px;
+}
 .padding-left-1x {
   padding-left: 10px;
 }
@@ -248,11 +254,17 @@ div {
 .bolder-500 {
   font-weight: 500;
 }
+.bolder-700 {
+  font-weight: 700;
+}
 .h1 {
   font-size: 44px;
 }
 .h-40 {
   font-size: 40px;
+}
+.h-30 {
+  font-size: 30px;
 }
 .h-48 {
   font-size: 48px;
@@ -335,6 +347,9 @@ div {
 }
 .bg-g2 {
   background: #f5f7fa;
+}
+.bg-F2F {
+  background: #F2F2F2;
 }
 .f-w {
   color: white;
@@ -443,6 +458,10 @@ div {
 }
 .txt-666 {
   color: #666666;
+}
+.border-none {
+  border: none;
+  outline: none;
 }
 </style>
 
