@@ -2,17 +2,17 @@
   <div class="bg-f2">
     
     <div class="flex-row flex-center fixedtop bg-w">
-      <div class="flex-row flex-column flex-1" v-for="(item,index) of typelist" :key='index' @click='currentidx=index'>
-        <div class="f-30 " :class="currentidx==index?'txt-59':'txt-42 margin-bottom-33'">{{item.name}}</div>
-        <div :class="currentidx==index?'lines':''"></div>
+      <div class="flex-row flex-column flex-1" v-for="(item,index) of typelist" :key='index' @click='switchnav(item)'>
+        <div class="f-30 " :class="currentidx==item.value?'txt-59':'txt-42 margin-bottom-33'">{{item.name}}</div>
+        <div :class="currentidx==item.value?'lines':''"></div>
       </div>
     </div>
 
 
-    <div class="margin-top bg-w " v-for='(item,index) of orderlist' :key='index'>
+    <div class="margin-top bg-w " v-for='(item,index) of orderlist' :key='index' @click="routeto('/sedetails?id='+item.id)">
         <div class="flex-row flex-center padd29">
           <div class="flex-1 txt-66 f-24">订单编号:{{item.orderno}}</div>
-          <div class="txt-59 f-24">待服务</div>
+          <div class="txt-59 f-24">{{item.orderstatus=='B'?'待服务':(item.orderstatus=='U'?'服务中':(item.orderstatus=='C'?'已完成':'已取消'))}}</div>
         </div>
 
         <div class="flex-row flex-center pro_con">
@@ -46,33 +46,46 @@ export default {
       typelist:[
         {
           name:'待服务',
-          value:'A',
-        },
-         {
-          name:'服务中',
           value:'B',
         },
          {
+          name:'服务中',
+          value:'U',
+        },
+         {
           name:'已完成',
-          value:'A',
+          value:'C',
         },
          {
           name:'已取消',
-          value:'A',
+          value:'D',
         },
        
       ],
-      currentidx:0,
-      orderlist:[]
+      currentidx:'B',
+      currenname:'待服务',
+      orderlist:[],
     };
   },
   created() {
     PageHelper.Init(this);
-    HttpHelper.Post('member/orderlist',{}).then((orderlist)=>{
-      this.orderlist=orderlist;
-    })
+    PageHelper.LoginAuth(this);
+    this.getorder()
   },
-  methods: {},
+  methods: {
+    switchnav(item){
+      this.currentidx=item.value;
+      this.currenname=item.name;
+      this.getorder()
+    },
+    getorder(){
+      var type = this.currentidx;
+      
+      HttpHelper.Post('member/orderlist',{orderstatus:type}).then((orderlist)=>{
+          this.orderlist=orderlist;
+      })
+    }
+  },
 };
 </script>
 <style scoped>

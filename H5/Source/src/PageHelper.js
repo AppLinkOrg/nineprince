@@ -115,13 +115,13 @@ export class PageHelper {
     var token = window.localStorage.getItem("token");
     if (token != null) {
       if (PageHelper.Member == null) {
-        HttpHelper.Post("member/info", {}).then((Member) => {
+        HttpHelper.Post("member/technicianinfo", {}).then((Member) => {
           page.Member = Member;
           PageHelper.Member = Member;
         });
       } else {
         page.Member = PageHelper.Member;
-        HttpHelper.Post("member/info", {}).then((Member) => {
+        HttpHelper.Post("member/technicianinfo", {}).then((Member) => {
           page.Member = Member;
           PageHelper.Member = Member;
         });
@@ -136,7 +136,7 @@ export class PageHelper {
   static ReloadMember(page, callback) {
     var token = window.localStorage.getItem("token");
     if (token != null) {
-      HttpHelper.Post("member/info", {}).then((Member) => {
+      HttpHelper.Post("member/technicianinfo", {}).then((Member) => {
         page.Member = Member;
         PageHelper.Member = Member;
         callback(Member);
@@ -151,19 +151,19 @@ export class PageHelper {
 
     var token = window.localStorage.getItem("token");
     if (token != null) {
-      HttpHelper.Post("member/info", {}).then((Member) => {
+      HttpHelper.Post("member/technicianinfo", {}).then((Member) => {
         if (Member == null) {
-          page.home();
+          page.routeto('/login');
         }
       });
     } else {
-      page.home();
+      page.routeto('/login');
     }
   }
   static CheckLoginCallback(callback) {
     var token = window.localStorage.getItem("token");
     if (token != null) {
-      HttpHelper.Post("member/info", {}).then((Member) => {
+      HttpHelper.Post("member/technicianinfo", {}).then((Member) => {
         callback(Member);
       });
     } else {
