@@ -11,6 +11,7 @@
           type="text"
           placeholder="请输入账号"
           class="f-26 margin-top-3x"
+          v-model="account"
         />
       </div>
       <div class="xilines margin-top-16 margin-bottom-69"></div>
@@ -20,13 +21,14 @@
           type="password"
           placeholder="请输入账号密码"
           class="f-26 margin-top-3x"
+          v-model="password"
         />
       </div>
       <div class="xilines margin-top-16"></div>
     </div>
     <div class="height-08x"></div>
     <div class="flex-row flex-column">
-      <div class="dl_btn">登录</div>
+      <div class="dl_btn" @click="login">登录</div>
       <div class="height-04x"></div>
       <div class="f-24 txt-33 ">忘记密码请联系管理员</div>
     </div>
@@ -37,6 +39,8 @@ import Config from "../Config";
 import { PageHelper } from "../PageHelper";
 import { HttpHelper } from "../HttpHelper";
 import { Utils } from "../Utils";
+import { Notify } from 'vant';
+import { Toast } from 'vant';
 
 export default {
   data() {
@@ -44,13 +48,30 @@ export default {
       Res: {},
       Inst: {},
       Member: null,
+      account:'',
+      password:''
     };
   },
   created() {
     PageHelper.Init(this);
     // PageHelper.LoginAuth(this);
   },
-  methods: {},
+  methods: {
+    login(){
+      HttpHelper.Post('member/login2',{
+        account:this.account,
+        password:this.password
+      }).then((res)=>{
+        if(res.code=='0'){
+         window.localStorage.setItem("token",res.return);
+          Toast.success("登录成功");
+          this.routeto('/');
+        }else {
+          Toast.fail(ret.return);
+        }
+      })
+    }
+  },
 };
 </script>
 <style scoped>
