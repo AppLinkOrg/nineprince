@@ -50,4 +50,48 @@ export class Utils{
         }
         return arrstr.join(",");
     }
+    static get10(a) {
+        a = parseInt(a);
+        if (a > 9) {
+            return a.toString();
+        } else {
+            return "0" + a.toString();
+        }
+    }
+     static FormatDateTime(date){
+        console.log("FormatDateTime"+date);
+        var year = Utils.ten2(date.getFullYear());
+        var month = Utils.ten2(date.getMonth() + 1);
+        var datec = Utils.ten2(date.getDate());
+        var hour = Utils.ten2(date.getHours());
+        var minute = Utils.ten2(date.getMinutes());
+        var second = Utils.ten2(date.getSeconds());
+    
+        var v= year + "-" + month + "-" + datec+" "+hour+":"+minute+":"+second;
+    
+        return v;
+      }
+    static ten2(i){
+        i=parseInt(i);
+        if(i>9){
+          return i.toString();
+        }else{
+          return "0"+i.toString();
+        }
+      }
+    static FormatDate(val) {
+        return val.substr(0, 10);
+    }
+    static FormatDate2(date) {
+        console.log("FormatDateTime" + date);
+        var year = Utils.ten2(date.getFullYear());
+        var month = Utils.ten2(date.getMonth() + 1);
+        var datec = Utils.ten2(date.getDate());
+
+        var v = year  + month +  datec 
+
+        console.log("FormatDateTime=" + v);
+        return v;
+    }
+
 }

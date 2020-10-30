@@ -32,7 +32,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
     host: "localhost",
-    port: 8081,
+    port: 8082,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
       ? { warnings: false, errors: true }
