@@ -327,9 +327,14 @@
 
   <div class="padding-left-30 margin-top-10">
 
-    <div class="flex-row flex-center ">
+    <div class="flex-row flex-center "  *ngFor='let item of projectmodule;'>
+      <!-- routerLink='{{d.url}}' [queryParams]="{type:'B'}" -->
+      <div class="block  flex-1 " (click)='dianji(d.url)' *ngFor='let d of item;'> 
+        <img src="{{uploadpath}}projectmodule/{{d.img}}" class="img">
+        <div class="margin-top-10">{{d.name}}</div>
+      </div>
 
-      <div class="block  flex-1 " routerLink='/yuyue' [queryParams]="{type:'B'}"> 
+      <!-- <div class="block  flex-1 " routerLink='/yuyue' [queryParams]="{type:'B'}"> 
         <img src="{{uploadpath}}resource/{{res.llyy}}" class="img">
         <div class="margin-top-10">理疗预约</div>
       </div>
@@ -337,11 +342,11 @@
       <div class="block flex-1 " routerLink='/yuyue' [queryParams]="{type:'A'}"> 
         <img src="{{uploadpath}}resource/{{res.lfyy}}" class="img">
         <div class="margin-top-10">理发预约</div>
-      </div>
+      </div> -->
   
     </div>
 
-    <div class="flex-row flex-center ">
+    <!-- <div class="flex-row flex-center ">
 
       <div class="block  flex-1 "  > 
         <img src="{{uploadpath}}resource/{{res.tjyy}}" class="img">
@@ -353,7 +358,7 @@
         <div class="margin-top-10">个人中心</div>
       </div>
   
-    </div>
+    </div> -->
     
   </div>
 

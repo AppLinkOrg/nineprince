@@ -28,7 +28,11 @@ export default new Router({
           name: 'Setting',
           component: Setting
         },
-
+        {
+          path: 'setfocus',
+          name: 'Setfocus',
+          component: Setfocus
+        },
 
       ]
     },
@@ -42,11 +46,7 @@ export default new Router({
       name: 'Sedetails',
       component: Sedetails
     },
-    {
-      path: '/setfocus',
-      name: 'Setfocus',
-      component: Setfocus
-    },
+    
     {
       path: '/myinfor',
       name: 'Myinfor',

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-box">
+  <div class="bg-box" v-if="Member!=null">
     <div class="padding-top75 flex-row">
       <div class="flex-1"></div>
       <div class="w-693">
@@ -11,7 +11,7 @@
           <input
             type="text"
             class="border-none text-right txt-33 f-26 bolder-500 padding-right-4x"
-            v-model="myname"
+            v-model="Member.name"
           />
         </div>
         <!-- 手机号 -->
@@ -22,9 +22,10 @@
             手机号
           </div>
           <input
-            type="text"
+            type="number"
+            maxlength="11"
             class="border-none text-right txt-33 f-26 bolder-500 padding-right-4x"
-            v-model="cpnumber"
+            v-model="Member.phone"
           />
         </div>
       </div>
@@ -32,7 +33,7 @@
     </div>
     <!-- 保存按钮 -->
     <div class="h-88 margin-top-25x startbtn flex-row flex-center">
-      <div class=" text-center h-40 f-w bolder-500 w-100">保存</div>
+      <div class=" text-center h-40 f-w bolder-500 w-100" @click="save">保存</div>
     </div>
   </div>
 </template>
@@ -41,6 +42,7 @@ import Config from "../Config";
 import { PageHelper } from "../PageHelper";
 import { HttpHelper } from "../HttpHelper";
 import { Utils } from "../Utils";
+import { Toast } from 'vant';
 
 export default {
   data() {
@@ -55,7 +57,19 @@ export default {
   created() {
     PageHelper.Init(this);
   },
-  methods: {}
+  methods: {
+    save(){
+      if(this.Member.phone=='' || this.Member.phone.length!=11){
+        Toast.fail('手机号码格式不正确');
+        return
+      }
+      HttpHelper.Post('member/updatetechnician',this.Member).then((res)=>{
+        Toast.success('保存成功');
+        
+      })
+    }
+
+  }
 };
 </script>
 <style scoped>

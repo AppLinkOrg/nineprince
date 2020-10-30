@@ -49,14 +49,38 @@ export class HomePage extends AppBase {
 
   }
 
-
+  projectmodule=[];
   onMyShow() {
     this.setTitle("企业服务")
-
+    console.log(AppBase.MemberInfo)
+    if(AppBase.MemberInfo!=null){
+      this.memberApi.projectmodule({
+        id:AppBase.MemberInfo.enterprise_id
+      }).then((res:any)=>{
+      
+       this.projectmodule=this.group(res,2);
+       console.log(this.projectmodule);
+      })
+    }
+  
   }
+  group(array, subGroupLength) {
+    let index = 0;
+    let newArray = [];
+    while(index < array.length) {
+        newArray.push(array.slice(index, index += subGroupLength));
+    }
+    return newArray;
+}
 
   
-
+dianji(url){
+  if(url==''){
+    this.toast('暂未开放')
+    return
+  }
+  this.navigate(url);
+}
 
 
   

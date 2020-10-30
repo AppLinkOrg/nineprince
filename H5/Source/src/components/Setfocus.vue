@@ -17,7 +17,7 @@
           />
         </div>
         <!-- 工作时间 -->
-        <div class="w-687 myinf adding-bottom-4x">
+        <div class="w-687 myinf adding-bottom-4x" @click="routeto('/times')">
           <div class=" myinfo">
             <div class="bolder-700 f-30 f-w">工作时间</div>
             <div class="bolder-500 h2 f-w padding-top-3x opacity-4">
