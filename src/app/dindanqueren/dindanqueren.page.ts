@@ -40,7 +40,7 @@ export class DindanquerenPage extends AppBase {
 
   indexbanner = [];
   daijinquan = [];
-  orderinfo = [];
+  orderinfo = null;
   checking = 'A';
   type = '';
    msg='';

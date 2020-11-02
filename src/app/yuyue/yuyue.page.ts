@@ -10,6 +10,7 @@ import { InstApi } from 'src/providers/inst.api';
 import { AliyunApi } from 'src/providers/aliyun.api';
 import { isNgTemplate } from '@angular/compiler';
 import { async } from '@angular/core/testing';
+import { from } from 'rxjs';
  
 
 @Component({
@@ -62,16 +63,25 @@ export class YuyuePage extends AppBase {
   technician_name='';
 
   gonghao='';
-  mobile='' 
+  mobile='' ;
+
   segmentChanged(ev: any) {
     console.log('选中的', ev.detail.value);
     this.checked=ev.detail.value;
   }
-
+  myDate='2020-08-14T05:30Z';
   onMyLoad(e=undefined) {
     this.params;
     this.setTitle("预约理疗服务")
     var that = this; 
+    var date = new Date();
+    
+    console.log(date)
+    var yy=date.getFullYear();
+    var mm=( date.getMonth() + 1)>10?( date.getMonth() + 1):+'0'+( date.getMonth() + 1);
+    var dd=date.getDate()>10?date.getDate():'0'+date.getDate();
+    this.myDate=yy+'-'+mm+'-'+dd+'T05:30Z';
+    console.log(this.myDate)
   }
  
    
@@ -81,8 +91,8 @@ export class YuyuePage extends AppBase {
           this.gonghao=info.gonghao;
     })
 
-    this.memberApi.durationlist({}).then((durationlist: any) => { 
-
+    this.memberApi.timeslotlist({}).then((durationlist: any) => { 
+      this.optionslist=[];
       for (let i = 0; i < durationlist.length; i++) {
         this.optionslist.push({
               text: durationlist[i].name,
@@ -95,7 +105,7 @@ export class YuyuePage extends AppBase {
   
     })
 
-    this.memberApi.addresslist({}).then((addresslist: any) => { 
+    this.memberApi.addresslist({enterprise_id:AppBase.MemberInfo.enterprise_id}).then((addresslist: any) => { 
 
       for (let i = 0; i < addresslist.length; i++) {
         this.options2list.push({
@@ -109,45 +119,103 @@ export class YuyuePage extends AppBase {
   
     })
 
-
-    this.memberApi.projectlist({}).then((projectlist: any) => { 
-
+    if(AppBase.MemberInfo!=null){
+      this.memberApi.projects({
+        id:AppBase.MemberInfo.enterprise_id
+      }).then((projectlist:any)=>{
+        this.options3list=[];
       for (let i = 0; i < projectlist.length; i++) {
-        this.options3list.push({
-              text: projectlist[i].name,
-              id:projectlist[i].id,
-              value: i
+        
+          this.options3list.push({
+            text: projectlist[i].name,
+            id:projectlist[i].id,
+            value: i
           });
-      } 
+       
+         
+        } 
 
-      this.projectlist = projectlist;
-  
-    })
+        this.projectlist = projectlist;
+        })
+    }
+   
+      this.gettech();
+  }
 
-    this.memberApi.technicianlist	({}).then((technicianlist	: any) => { 
+  gettech(){
 
-      for (let i = 0; i < technicianlist	.length; i++) {
+    var json={
+      enterprise_id:0,
+      project_ids:'',
+      restdate:'',
+      timeslots_id:''
+    };
+    if(AppBase.MemberInfo!=null){
+      json.enterprise_id=AppBase.MemberInfo.enterprise_id;
+    }
+    
+    if(this.project_id!=''){
+      json.project_ids=this.project_id;
+    }
+    if(this.startdate!=''){
+      json.restdate=this.startdate;
+    }
+    if(this.date_id!=''){
+      json.timeslots_id=this.date_id;
+    }
+    this.memberApi.technicianlist	(json).then((technicianlist	: any) => { 
+      this.options4list=[];
+      for (let i = 0; i < technicianlist.length; i++) {
+        if(technicianlist[i].datelist.length>0 && technicianlist[i].projects.length>0){
         this.options4list.push({
-              text: technicianlist	[i].name,
+              text: technicianlist[i].name,
               id:technicianlist	[i].id,
               value: i
           });
+        }
       } 
 
       this.technicianlist	 = technicianlist	;
   
     })
-     
   }
-
+  disabledDate(current) {
+    // return current < this.myDate().subtract(1, 'day') 
+  }
   update(){
     console.log(this.startdate,'日期')
+
+
     this.startdate= AppUtil.switchTimeFormat(this.startdate);
-    
+      
+      this.date_id='';
+      this.date_name=''; 
+      this.gettech();
   }
  
 
    async openPicker() {
+
+    if(this.checked=='b'){
+      this.optionslist=[];
+      var arr =[];
+      arr=this.technicianlist[this.techseq].datelist;
+      for(var i=0;i< arr.length;i++){
+        if(arr[i].timeslots_id>0){
+          this.optionslist.push({
+            text: arr[i].timeslots_id_name,
+            id:arr[i].timeslots_id,
+            value: i
+           })
+        }
+         
+      }
+      if(arr.length==0){
+        this.toast('该技师今天休息,请重新选择日期');
+        return
+      }
+    }
+
     const picker = await this.pickerController.create({
         columns: [{name:'role',options:this.optionslist}],
         buttons: [
@@ -161,11 +229,17 @@ export class YuyuePage extends AppBase {
                     console.log(value.role.value);
                     this.date_id=this.durationlist[value.role.value].id;
                     this.date_name=value.role.text; 
+                    if(this.checked=='a'){
+                      this.gettech();
+                    }
+                   
                 }
             }
         ]
     });
     await picker.present();
+
+   
 }
 
 async openPicker2() {
@@ -182,6 +256,7 @@ async openPicker2() {
                  
                   this.address_id=this.addresslist[value.role.value].id;
                   this.address_name=value.role.text; 
+                  
               }
           }
       ]
@@ -190,6 +265,21 @@ async openPicker2() {
 }
 
 async openPicker3() {
+
+  if(this.checked=='b'){
+    this.options3list=[];
+    var arr=[];
+    arr=this.technicianlist[this.techseq].projects;
+    for(var i=0;i< arr.length;i++){
+       this.options3list.push({
+            text: arr[i].name,
+            id:arr[i].id,
+            value: i
+          });
+    }
+  }
+
+
   const picker = await this.pickerController.create({
       columns: [{name:'role',options:this.options3list}],
       buttons: [
@@ -203,14 +293,30 @@ async openPicker3() {
                   console.log(value.role.value);
                   this.project_id=this.projectlist[value.role.value].id;
                   this.project_name=value.role.text; 
+
+                  // if(this.checked=='a'){
+                    this.gettech();
+                  // }
               }
           }
       ]
   });
   await picker.present();
+  
 }
-
+techseq='';
 async openPicker4() {
+  if(this.checked=='a'){
+    if(this.startdate=='' || this.date_name==''){
+      this.toast('请选择时间');
+      return
+    }
+    if(this.project_name==''){
+      this.toast('请选择项目');
+      return
+    }
+  }
+
   const picker = await this.pickerController.create({
       columns: [{name:'role',options:this.options4list}],
       buttons: [
@@ -224,6 +330,7 @@ async openPicker4() {
                   console.log(value.role.value);
                   this.technician_id=this.technicianlist[value.role.value].id;
                   this.technician_name=value.role.text; 
+                  this.techseq=value.role.value;
               }
           }
       ]

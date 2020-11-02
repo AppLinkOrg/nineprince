@@ -27,8 +27,8 @@
       <div class="flex-row flex-center padding-bottom-30 ">
         <div class="flex-1">日期</div>
 
-        <ion-datetime displayFormat="YYYY-MM-DD" (ionChange)='update()' [(ngModel)]="startdate" doneText='确认'
-          cancelText='取消' placeholder='请选择理疗日期'></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DD" min='{{myDate}}' (ionChange)='update()' [(ngModel)]="startdate" doneText='确认'
+          cancelText='取消' placeholder='请选择理疗日期' ></ion-datetime>
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>
 
@@ -130,7 +130,7 @@
       <div class="flex-row flex-center padding-bottom-30 ">
         <div class="flex-1">日期</div>
 
-        <ion-datetime displayFormat="YYYY-MM-DD" (ionChange)='update()' [(ngModel)]="startdate" doneText='确认'
+        <ion-datetime displayFormat="YYYY-MM-DD" (ionChange)='update()' min='{{myDate}}' [(ngModel)]="startdate" doneText='确认'
           cancelText='取消' placeholder='请选择理疗日期'></ion-datetime>
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>
