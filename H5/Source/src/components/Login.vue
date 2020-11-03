@@ -67,7 +67,8 @@ export default {
           Toast.success("登录成功");
           this.routeto('/');
         }else {
-          Toast.fail(ret.return);
+          Toast.fail(res.return);
+          //  Toast.fail("账号或密码不正确");
         }
       })
     }

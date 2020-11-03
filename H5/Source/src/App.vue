@@ -463,5 +463,8 @@ div {
   border: none;
   outline: none;
 }
+.van-toast{
+  width: 200px !important;
+}
 </style>
 

@@ -51,7 +51,8 @@ export default new Router({
       path: '/myinfor',
       name: 'Myinfor',
       component: Myinfor
-    },
+    }
+    ,
     {
       path: '/times',
       name: 'Times',

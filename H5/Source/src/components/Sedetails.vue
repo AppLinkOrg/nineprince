@@ -25,7 +25,7 @@
             class="padding-top padding-bottom flex-row flex-center border-bottomEEE"
           >
             <img
-              :src="uploadpath + 'resource/' + Res.blueicon"
+              :src="uploadpath + 'technician/' + orderinfo.technician_photo"
               class="personicon"
             />
             <div class="padding-left-25 f-g100 h2 bolder-500 flex-1">
@@ -138,6 +138,7 @@ export default {
     getorder(){
       HttpHelper.Post('member/orderinfo',{id:this.$route.query.id}).then((orderinfo)=>{
         this.orderinfo=orderinfo
+        console.log(orderinfo,'1111')
       })
     }
   }
