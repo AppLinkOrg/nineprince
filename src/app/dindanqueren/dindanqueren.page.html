@@ -92,7 +92,7 @@
 
     <div style="" *ngIf="orderinfo.orderstatus=='A'" class="  btn margin-40 text-center txt-white margin-top-20" (click)="cancel()">取消订单</div>
 
-    <div style="" *ngIf="orderinfo.orderstatus=='B'" class="  btn margin-40 text-center txt-white margin-top-20" (click)="complete()">订单完成</div>
+    <div style="" *ngIf="orderinfo.orderstatus=='B' || orderinfo.orderstatus=='U'" class="  btn margin-40 text-center txt-white margin-top-20" (click)="complete()">订单完成</div>
   
   </div>
 

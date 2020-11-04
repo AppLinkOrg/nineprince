@@ -75,7 +75,7 @@ export class Tab2Page extends AppBase {
   
 
   payment(){
-    var openid=localStorage.getItem("openid");
+    var openid = window.sessionStorage.getItem("openid");
     console.log(openid);
    
     // this.memberApi.chongzhi({

@@ -79,7 +79,21 @@ dianji(url){
     this.toast('暂未开放')
     return
   }
-  this.navigate(url);
+  if(url.indexOf('?')>-1){
+    var arr=url.split("?");
+    console.log(arr)
+    console.log(arr[0],arr[1])
+    var a=arr[0];
+    var params=arr[1].split("=");
+    console.log(arr[1],params)
+    // var str=params[0];
+    var str2=params[1];
+    console.log(str2);
+    this.navigate(a,{type:str2});
+  }else {
+    this.navigate(url);
+  }
+  
 }
 
 

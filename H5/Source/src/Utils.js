@@ -81,7 +81,7 @@ export class Utils{
       }
     static FormatDate(val) {
        
-        var date = Utils.FormatDateTime(val);
+        var date = Utils.FormatDate2(val);
         return date.substr(0, 10);
     }
     static FormatDate2(date) {

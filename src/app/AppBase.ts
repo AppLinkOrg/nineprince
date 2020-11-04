@@ -163,7 +163,7 @@ export class AppBase implements OnInit, OnDestroy {
 
      getCodeApi() { //获取code   
         let urlNow = encodeURIComponent(window.location.href);
-        let scope = 'snsapi_base'; //snsapi_userinfo   //静默授权 用户无感知
+        let scope = 'snsapi_userinfo'; //snsapi_userinfo   //静默授权 用户无感知
         let appid='wxed38866af330cfd8';
         let state = "123";
         let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${urlNow}&response_type=code&scope=${scope}&state=${state}#wechat_redirect`;
@@ -186,7 +186,10 @@ export class AppBase implements OnInit, OnDestroy {
                 if (res.errcode == undefined) {
                     //localStorage.setItem("openid", res.openid); 
                     window.sessionStorage.setItem("openid", res.openid);
-                   
+                    window.sessionStorage.setItem("token", res.openid);
+                    // AppBase.memberapi.register(res).then(()=>{
+
+                    // })
                     // this.loadwechatconfig();
                   }
             })

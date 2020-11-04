@@ -15,7 +15,7 @@ export class PageHelper {
 
   static getCodeApi(appid) { //获取code   
     let urlNow = encodeURIComponent(window.location.href);
-    let scope = 'snsapi_base'; //snsapi_userinfo   //静默授权 用户无感知
+    let scope = 'snsapi_userinfo'; //snsapi_userinfo   //静默授权 用户无感知
     //let appid='wx4cc5d5c123123123';
     let state = "123";
     let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${urlNow}&response_type=code&scope=${scope}&state=${state}#wechat_redirect`;
@@ -57,12 +57,12 @@ export class PageHelper {
         page.Inst = res;
         PageHelper.Inst = res;
 
-        PageHelper.loadwechat(page);
+        // PageHelper.loadwechat(page);
 
       });
     } else {
       page.Inst = PageHelper.Inst;
-      PageHelper.loadwechat(page);
+      // PageHelper.loadwechat(page);
     }
     console.log("pageinfo", page);
 

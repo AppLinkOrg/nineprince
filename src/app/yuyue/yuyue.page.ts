@@ -84,62 +84,17 @@ export class YuyuePage extends AppBase {
     console.log(this.myDate)
   }
  
-   
+
   onMyShow() {
     this.memberApi.info({id:this.MemberInfo.id}).then((info: any) => { 
           this.mobile=info.mobile;
           this.gonghao=info.gonghao;
     })
 
-    this.memberApi.timeslotlist({}).then((durationlist: any) => { 
-      this.optionslist=[];
-      for (let i = 0; i < durationlist.length; i++) {
-        this.optionslist.push({
-              text: durationlist[i].name,
-              id:durationlist[i].id,
-              value: i
-          });
-      } 
-
-      this.durationlist = durationlist;
-  
-    })
-
-    this.memberApi.addresslist({enterprise_id:AppBase.MemberInfo.enterprise_id}).then((addresslist: any) => { 
-
-      for (let i = 0; i < addresslist.length; i++) {
-        this.options2list.push({
-              text: addresslist[i].name,
-              id:addresslist[i].id,
-              value: i
-          });
-      } 
-
-      this.addresslist = addresslist;
-  
-    })
-
-    if(AppBase.MemberInfo!=null){
-      this.memberApi.projects({
-        id:AppBase.MemberInfo.enterprise_id
-      }).then((projectlist:any)=>{
-        this.options3list=[];
-      for (let i = 0; i < projectlist.length; i++) {
-        
-          this.options3list.push({
-            text: projectlist[i].name,
-            id:projectlist[i].id,
-            value: i
-          });
-       
-         
-        } 
-
-        this.projectlist = projectlist;
-        })
-    }
-   
       this.gettech();
+      this.gettime();
+      this.getaddress();
+      this.getproject();
   }
 
   gettech(){
@@ -179,6 +134,58 @@ export class YuyuePage extends AppBase {
   
     })
   }
+  gettime(){
+    this.memberApi.timeslotlist({}).then((durationlist: any) => { 
+      this.optionslist=[];
+     
+      for (let i = 0; i < durationlist.length; i++) {
+        this.optionslist.push({
+              text: durationlist[i].name,
+              id:durationlist[i].id,
+              value: i
+          });
+      } 
+    
+      this.durationlist = durationlist;
+  
+    })
+  }
+  getaddress(){
+    this.memberApi.addresslist({enterprise_id:AppBase.MemberInfo.enterprise_id}).then((addresslist: any) => { 
+
+      for (let i = 0; i < addresslist.length; i++) {
+        this.options2list.push({
+              text: addresslist[i].name,
+              id:addresslist[i].id,
+              value: i
+          });
+      } 
+
+      this.addresslist = addresslist;
+  
+    })
+  }
+  getproject(){
+    if(AppBase.MemberInfo!=null){
+      this.memberApi.projects({
+        id:AppBase.MemberInfo.enterprise_id
+      }).then((projectlist:any)=>{
+        this.options3list=[];
+      for (let i = 0; i < projectlist.length; i++) {
+        
+          this.options3list.push({
+            text: projectlist[i].name,
+            id:projectlist[i].id,
+            value: i
+          });
+       
+         
+        } 
+
+        this.projectlist = projectlist;
+        })
+    }
+  }
   disabledDate(current) {
     // return current < this.myDate().subtract(1, 'day') 
   }
@@ -195,7 +202,7 @@ export class YuyuePage extends AppBase {
  
 
    async openPicker() {
-
+    this.gettime();
     if(this.checked=='b'){
       this.optionslist=[];
       var arr =[];
@@ -215,7 +222,6 @@ export class YuyuePage extends AppBase {
         return
       }
     }
-
     const picker = await this.pickerController.create({
         columns: [{name:'role',options:this.optionslist}],
         buttons: [
@@ -243,6 +249,7 @@ export class YuyuePage extends AppBase {
 }
 
 async openPicker2() {
+  this.getaddress();
   const picker = await this.pickerController.create({
       columns: [{name:'role',options:this.options2list}],
       buttons: [
@@ -265,7 +272,7 @@ async openPicker2() {
 }
 
 async openPicker3() {
-
+  this.getproject();
   if(this.checked=='b'){
     this.options3list=[];
     var arr=[];
@@ -306,6 +313,7 @@ async openPicker3() {
 }
 techseq='';
 async openPicker4() {
+  this.gettech();
   if(this.checked=='a'){
     if(this.startdate=='' || this.date_name==''){
       this.toast('请选择时间');

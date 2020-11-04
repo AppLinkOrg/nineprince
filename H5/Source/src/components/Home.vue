@@ -113,12 +113,12 @@ export default {
   margin-top: 27px;
 }
 .pro_con {
-  width: 100vw;
+  /* width: 100%; */
   padding: 23px 22px 22px;
   background: #F7F7F7;
 }
 .fuwudz {
-  width: 100vw;
+  /* width: 100vw; */
   padding: 40px 27px 38px;
 }
 .pro_img {
