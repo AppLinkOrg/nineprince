@@ -49,15 +49,17 @@ export class OrderlistPage extends AppBase {
     });
  
     
-
+    if(this.params.check!=null){
+      this.check=this.params.check;
+    }
    
  
   }
 
   onMyShow() {
     if(this.params.check!=null){
-      this.check=this.params.check;
-      this.order(this.params.check);
+     
+      this.order(this.check);
     }else{
       this.order(this.check);
     }
@@ -79,7 +81,7 @@ export class OrderlistPage extends AppBase {
   }
 
   back(){
-    window.location.href="/home";
+    window.location.href="/";
     //this.navigate('/home')
   }
 

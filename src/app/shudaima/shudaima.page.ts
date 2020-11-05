@@ -49,17 +49,18 @@ export class ShudaimaPage extends AppBase {
       this.showAlert('请输入企业代码');
      return;
     }
+    AppBase.daima=this.daima;
     if (this.MemberInfo!=null) {
       this.memberApi.info({id:this.MemberInfo.id}).then((info:any)=>{
 
         if(info.enterprise_code!=this.daima){
-          if(this.daima==''){
+          // if(this.daima==''){
             this.showAlert('请输入正确的企业代码');
            return;
-          }
+          // }
         }else{
           
-            this.navigate("/home")
+            this.navigate("/")
          
         }
         console.log(info.enterprise_code)
@@ -76,7 +77,7 @@ export class ShudaimaPage extends AppBase {
             if (info==null) {
               this.navigate("/bangdin",{qiyema:this.daima})
             }else{
-              this.navigate("/home")
+              this.navigate("/")
             }
           })
         }else{

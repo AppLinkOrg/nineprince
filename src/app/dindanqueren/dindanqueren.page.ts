@@ -159,7 +159,7 @@ export class DindanquerenPage extends AppBase {
           this.toast("余额不足");
         } else {
           this.memberApi.updatestatus({ id: this.params.id, orderstatus: 'B' }).then((res: any) => {
-            this.navigate("orderlist", { check: 'B' })
+            this.navigate("orderlist", { check: 'B,U' })
           })
           //this.navigate("orderlist")
         }
@@ -178,7 +178,7 @@ export class DindanquerenPage extends AppBase {
 
           if (res.err_msg == "get_brand_wcpay_request:ok") {
 
-            this.navigate("orderlist", { check: 'B' })
+            this.navigate("orderlist", { check: 'B,U' })
           }
         });
 

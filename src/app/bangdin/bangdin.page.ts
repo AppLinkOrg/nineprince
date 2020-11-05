@@ -87,7 +87,7 @@ export class BangdinPage extends AppBase {
               window.localStorage.setItem("MemberInfo",JSON.stringify(info));
             
 
-              window.location.href="/home";
+              window.location.href="/";
               console.log(info,'信息')
           })
 

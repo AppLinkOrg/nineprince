@@ -28,7 +28,7 @@
         <div class="flex-1">日期</div>
 
         <ion-datetime displayFormat="YYYY-MM-DD" min='{{myDate}}' (ionChange)='update()' [(ngModel)]="startdate" doneText='确认'
-          cancelText='取消' placeholder='请选择理疗日期' ></ion-datetime>
+          cancelText='取消' placeholder="请选择{{type=='B'?'理疗':'理发'}}日期" ></ion-datetime>
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>
 
@@ -40,7 +40,7 @@
         <div class="flex-1">时段</div>
         <!-- <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗时间"> -->
         <input class="    " style="border: 0;" [(ngModel)]='date_name' onfocus="this.blur();" (click)="openPicker()"
-          placeholder="请选择理疗时间">
+          placeholder="请选择{{type=='B'?'理疗':'理发'}}时间">
 
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>
@@ -131,7 +131,7 @@
         <div class="flex-1">日期</div>
 
         <ion-datetime displayFormat="YYYY-MM-DD" (ionChange)='update()' min='{{myDate}}' [(ngModel)]="startdate" doneText='确认'
-          cancelText='取消' placeholder='请选择理疗日期'></ion-datetime>
+          cancelText='取消' placeholder="请选择{{type=='B'?'理疗':'理发'}}日期"></ion-datetime>
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>
  
@@ -141,7 +141,7 @@
         <div class="flex-1">时段</div>
         <!-- <input class="h5   " style="border: 0;" type="text" placeholder="请选择理疗时间"> -->
         <input class="    " style="border: 0;" [(ngModel)]='date_name' onfocus="this.blur();" (click)="openPicker()"
-          placeholder="请选择理疗时间">
+          placeholder="请选择{{type=='B'?'理疗':'理发'}}时间">
 
         <img src="{{uploadpath}}resource/{{res.right}}" class="right margin-left-20">
       </div>

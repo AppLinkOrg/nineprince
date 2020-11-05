@@ -81,7 +81,7 @@ export class AppBase implements OnInit, OnDestroy {
 
     static Current = null;
     currentpage = "";
-
+    static daima='';
     static STATICRAND = "";
 
 
@@ -136,7 +136,13 @@ export class AppBase implements OnInit, OnDestroy {
  
         if (MemberInfo != null) {
             AppBase.MemberInfo = JSON.parse(MemberInfo);
+            // this.navigate('/home');
+        }else {
+            if( AppBase.daima==''){
+                this.navigate('/shudaima');
+            }
         }
+        
         console.log("rdw", AppBase.MemberInfo);
 
         this.formdata = {};
