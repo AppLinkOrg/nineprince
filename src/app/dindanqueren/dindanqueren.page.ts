@@ -52,18 +52,7 @@ export class DindanquerenPage extends AppBase {
     this.setTitle("订单信息确认")
     console.log(this.params.id, '传入的ID')
 
-    this.memberApi.orderinfo({ id: this.params.id }).then((orderinfo: any) => {
-      this.orderinfo = orderinfo;
-      this.type = orderinfo.ordertype;
-
-      //this.CountDown(orderinfo.ordertime);
-    
-      this.Interval= setInterval(() => { 
-        this.CountDown(orderinfo.ordertime);
-      },  1000);
    
-     // console.log(orderinfo.ordertime,'aaa');
-    })
    
   
 
@@ -130,15 +119,31 @@ export class DindanquerenPage extends AppBase {
 
   onMyShow() {
     var that = this;
+    this.memberApi.orderinfo({ id: this.params.id }).then((orderinfo: any) => {
+      this.orderinfo = orderinfo;
+      this.type = orderinfo.ordertype;
 
+      //this.CountDown(orderinfo.ordertime);
+    
+      this.Interval= setInterval(() => { 
+        this.CountDown(orderinfo.ordertime);
+      },  1000);
+
+
+
+
+      this.memberApi.daijinquan({ member_id: this.MemberInfo.id, status: 'A', type: this.type }).then((daijinquan: any) => {
+        for (var i = 0; i < daijinquan.length; i++) {
+          daijinquan[i].checked = false;
+        }
+        this.daijinquan = daijinquan;
+        console.log(daijinquan);
+      })
    
-    this.memberApi.daijinquan({ member_id: this.MemberInfo.id, status: 'A', type: this.type }).then((daijinquan: any) => {
-      for (var i = 0; i < daijinquan.length; i++) {
-        daijinquan[i].checked = false;
-      }
-      this.daijinquan = daijinquan;
-      console.log(daijinquan);
+     // console.log(orderinfo.ordertime,'aaa');
     })
+   
+  
 
   }
   checked(e) {
@@ -158,7 +163,7 @@ export class DindanquerenPage extends AppBase {
         if (parseInt(price) > parseInt(info.quota)) {
           this.toast("余额不足");
         } else {
-          this.memberApi.updatestatus({ id: this.params.id, orderstatus: 'B' }).then((res: any) => {
+          this.memberApi.updatestatus({ id: this.params.id, orderstatus: 'B',checking:'A' }).then((res: any) => {
             this.navigate("orderlist", { check: 'B,U' })
           })
           //this.navigate("orderlist")
@@ -188,17 +193,30 @@ export class DindanquerenPage extends AppBase {
 
       //this.loadwechat();
     } else {
-      this.memberApi.updatestatus({ id: this.params.id, orderstatus: 'B' }).then((res: any) => {
+      if(this.checkedu(price)){
+        this.memberApi.updatestatus({ id: this.params.id, orderstatus: 'B' ,checking:'C'}).then((res: any) => {
 
-        this.memberApi.xiaohaoquan({ id: this.checking }).then((res: any) => {
-          this.navigate("orderlist", { check: 'B' })
+          this.memberApi.xiaohaoquan({ id: this.checking }).then((res: any) => {
+            this.navigate("orderlist", {check: 'B,U' })
+          })
+  
         })
-
-      })
-      console.log('代金券支付')
+      }else {
+        this.toast("代金券额度不足");
+      }
+     
+      console.log(this.checking,'代金券支付')
     }
   }
-
+  checkedu(price){
+ 
+    for(let item of this.daijinquan){
+      if(item.id==this.checking && price<=item.edu){
+          return true
+      }
+    }
+    return false
+  }
   cancel() {
 
     this.showConfirm('确认取消订单？', (ret) => {

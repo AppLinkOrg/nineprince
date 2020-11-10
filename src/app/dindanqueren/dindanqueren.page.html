@@ -61,6 +61,8 @@
             <img src="{{uploadpath}}resource/{{checking==item.id?res.check:res.nocheck}}"   class="icon">
             <!-- <img src="{{uploadpath}}resource/{{res.nocheck}}" class="icon-15"> -->
             <ion-label class="h5 margin-left-10">{{item.name}}</ion-label>
+          
+            <ion-label class="text-right">{{item.edu}}元</ion-label>
           </ion-item>
 
           <ion-item >
@@ -69,7 +71,7 @@
             <ion-radio value="A" class="" style="width: 0px;height: 0px;"></ion-radio>
             <img src="{{uploadpath}}resource/{{checking=='A'?res.check:res.nocheck}}"   class="icon">
             <ion-label  class="h5  margin-left-10">余额支付</ion-label>
-            <!-- <ion-label class="text-right">阿萨德</ion-label> -->
+            <ion-label class="text-right">{{MemberInfo.quota}}元</ion-label>
           </ion-item>
 
           <ion-item  >
@@ -77,7 +79,7 @@
             <img src="{{uploadpath}}resource/{{checking=='B'?res.check:res.nocheck}}"   class="icon">
           
             <ion-label  class="h5 margin-left-10">微信支付</ion-label>
-            <!-- <ion-label class="text-right">阿萨德</ion-label> -->
+            <ion-label class="text-right">{{orderinfo.project_price}}元</ion-label>
           </ion-item>
        
         </ion-radio-group>

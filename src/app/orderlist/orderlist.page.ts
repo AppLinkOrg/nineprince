@@ -86,8 +86,20 @@ export class OrderlistPage extends AppBase {
   }
 
 
+todetail(id){
+  this.navigate("/dindanqueren",{id:id})
+}
 
-
-
+wancheng(item){
+  this.showConfirm('确认完成订单？', (ret) => {
+    if (ret == true) {
+      this.memberApi.updatestatus({ id: item.id, orderstatus: 'C' }).then((res: any) => {
+        this.toast("订单已完成")
+        // this.back();
+        this.onMyShow();
+      })
+    }
+  })
+}
   
 }

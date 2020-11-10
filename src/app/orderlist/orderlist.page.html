@@ -35,13 +35,13 @@
 
   </div>
 
-  <div class="" *ngFor="let item of orderlist;let i=index;" routerLink='/dindanqueren' [queryParams]="{id:item.id}">
-    <div class="flex-row flex-center padding-20 bg-white">
+  <div class="" *ngFor="let item of orderlist;let i=index;" >
+    <div class="flex-row flex-center padding-20 bg-white"  (click)='todetail(item.id)'>
       <div class="h5 txt-gray flex-1">订单编号:{{item.orderno}}</div>
       <div class="h5 txt-gray">{{item.orderstatus_name}}</div>
     </div>
 
-    <div class="padding-20 flex-row flex-center bg-gray">
+    <div class="padding-20 flex-row flex-center bg-gray"  (click)='todetail(item.id)'>
 
       <img src="{{uploadpath}}project/{{item.project_img}}" class="icon-80" style="">
 
@@ -59,13 +59,13 @@
     </div>
 
     <div class="flex-row flex-center padding-20 bg-white">
-      <div class="h5 txt-gray flex-1">合计：¥{{item.project_price}}</div>
+      <div class="h5 txt-gray flex-1"  (click)='todetail(item.id)'>合计：¥{{item.project_price}}</div>
 
 
       <div class="caozuo h5" *ngIf="item.orderstatus=='A'">付款</div>
       <div class="caozuo h5 margin-left-10" *ngIf="item.orderstatus=='A'">取消</div>
 
-      <div class="caozuo h5 margin-left-10" *ngIf="item.orderstatus=='B'">完成</div>
+      <div class="caozuo h5 margin-left-10" (click)='wancheng(item)' *ngIf="item.orderstatus=='B' || item.orderstatus=='U'">完成</div>
       <!-- <div class="caozuo h5" *ngIf="item.orderstatus=='B'">取消</div>  -->
 
     </div>

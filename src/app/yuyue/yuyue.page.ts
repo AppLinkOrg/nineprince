@@ -58,6 +58,7 @@ export class YuyuePage extends AppBase {
 
   project_id='';
   project_name='';
+  project_price=0;
 
   technician_id='';
   technician_name='';
@@ -152,7 +153,7 @@ export class YuyuePage extends AppBase {
         this.optionslist.push({
               text: durationlist[i].name,
               id:durationlist[i].id,
-              value: i
+              value:  durationlist[i].id
           });
       } 
     
@@ -178,8 +179,10 @@ export class YuyuePage extends AppBase {
   }
   getproject(){
     if(AppBase.MemberInfo!=null){
+
       this.memberApi.projects({
-        id:AppBase.MemberInfo.enterprise_id
+        id:AppBase.MemberInfo.enterprise_id,
+        type:this.params.type
       }).then((projectlist:any)=>{
         this.options3list=[];
       for (let i = 0; i < projectlist.length; i++) {
@@ -187,7 +190,8 @@ export class YuyuePage extends AppBase {
           this.options3list.push({
             text: projectlist[i].name,
             id:projectlist[i].id,
-            value: i
+            value: projectlist[i].id,
+            price: projectlist[i].price
           });
        
          
@@ -223,21 +227,24 @@ export class YuyuePage extends AppBase {
         this.toast('请选择技师');
         return
       }
+      console.log(this.project_id)
       if(this.project_id=='' ){
         this.toast('请选择项目');
         return
       }
+    
       this.optionslist=[];
       var arr =[];
       arr=this.technicianlist[this.techseq].datelist;
       for(var i=0;i< arr.length;i++){
-        if(arr[i].timeslots_id>0){
-          this.optionslist.push({
-            text: arr[i].timeslots_id_name,
-            id:arr[i].timeslots_id,
-            value: i
-           })
-        }
+        
+            if(arr[i].timeslots_id>0){
+              this.optionslist.push({
+                text: arr[i].timeslots_id_name,
+                id:arr[i].timeslots_id,
+                value: arr[i].timeslots_id
+               })
+              }
          
       }
       if(arr.length==0){
@@ -257,7 +264,8 @@ export class YuyuePage extends AppBase {
                 text: '确定',
                 handler: value => {
                     console.log(value.role.value);
-                    this.date_id=this.durationlist[value.role.value].id;
+                    console.log(this.optionslist,'aa');
+                    this.date_id=value.role.value;
                     this.date_name=value.role.text; 
                     if(this.checked=='a'){
                         this.technician_id='';
@@ -300,6 +308,7 @@ async openPicker2() {
 
 async openPicker3() {
   this.getproject();
+
   if(this.checked=='b'){
     if(this.technician_id=='' ){
       this.toast('请选择技师');
@@ -313,7 +322,8 @@ async openPicker3() {
        this.options3list.push({
             text: arr[i].name,
             id:arr[i].id,
-            value: i
+            value: arr[i].id,
+            price:arr[i].price
           });
     }
     if(arr.length==0){
@@ -328,7 +338,7 @@ async openPicker3() {
     }
   }
   
-
+  console.log(this.options3list,'pppp');
   const picker = await this.pickerController.create({
       columns: [{name:'role',options:this.options3list}],
       buttons: [
@@ -339,9 +349,11 @@ async openPicker3() {
           {
               text: '确定',
               handler: value => {
-                  console.log(value.role.value);
-                  this.project_id=this.projectlist[value.role.value].id;
+                  console.log(value);
+                 
+                  this.project_id=value.role.value;
                   this.project_name=value.role.text; 
+                  this.project_price=this.options3list[value.role.value].price;
                   if(this.checked=='a'){
                     this.technician_id='';
                     this.technician_name='';
@@ -368,6 +380,10 @@ async openPicker4() {
       this.toast('请选择项目');
       return
     }
+    if(this.options4list.length==0){
+      this.toast('这个时间段没有技师哦~');
+      return
+    }
   }
 
   const picker = await this.pickerController.create({
@@ -387,6 +403,9 @@ async openPicker4() {
                   if(this.checked=='b'){
                     this.project_id='';
                     this.project_name='';
+                    this.project_price=0;
+                    this.date_id='';
+                    this.date_name='';
                   }
               }
           }
@@ -462,7 +481,8 @@ submit(){
     duration_id:this.date_id,
     yuyueriqi:this.startdate,
     gh:this.gonghao,
-    mobile:this.mobile
+    mobile:this.mobile,
+    price:this.project_price
   }).then((res: any) => { 
  
     
