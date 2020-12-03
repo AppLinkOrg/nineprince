@@ -14,14 +14,14 @@
         >
           <div
             class="flex-row flex-column txt-666"
-            :class="[{ today: item.today }, { chocheck: item.check }]"
+            :class="[{ today: item.today }, { chocheck: item.check || (item.pass==false && item.timeline2.length>1 && item.timeline2[0].name!='') }]"
             @click="choseday(item, index)"
           >
             <div class="f-24 bold">{{ item.monday }}</div>
             <div class="margin-top-25 f-24">{{ item.m + "." + item.d }}</div>
             <div
               class="todayline"
-              :class="[{ todaylint: item.today }, { toact: item.check }]"
+              :class="[{ todaylint: item.today }, { toact: item.check || (item.pass==false && item.timeline2.length>1 && item.timeline2[0].name!='')}]"
             ></div>
           </div>
         </div>
@@ -32,8 +32,26 @@
         />
       </div>
     </div>
-
-    <div class="margin-top-3x" v-if="wcal.length > 0">
+    <div class="margin-top-3x margin-left" >
+      <div class="flex-row flex-center ">
+        <div class="f-30 txt-33 ">添加上班时间点</div>
+        <img :src="uploadpath+'resource/'+Res.adtimes" class="jia_img margin-left-37" @click="addtimes" v-if='wcal.length > 0 && (wcal[currentindex].pass==false || wcal[currentindex].today==true)'/>
+      </div>
+    
+      <div class="flex-row flex-wrap margin-top" v-if='wcal.length>0'>
+        <div  v-for="(d, idx) of wcal[currentindex].timeline2" :key="idx">
+          <div class="hmin margin-bottom flex-row flex-center" v-if="d.status=='A'">
+            <input  type="time" class="stimes" v-model="d.name">
+          <img :src="uploadpath+'resource/'+Res.detimes" class="jia_img" @click="detetimes(idx)" v-if="(wcal[currentindex].pass==false || wcal[currentindex].today==true)"/>
+          </div>
+         
+        </div>
+         
+      </div>
+      
+     
+    </div>
+    <!-- <div class="margin-top-3x" v-if="wcal.length > 0">
       <div class="f-30 txt-33 margin-bottom-3x margin-left-37">上午</div>
       <div class="flex-row flex-wrap margin-left">
         <div v-for="(d, idx) of wcal[currentindex].timeline" :key="idx">
@@ -116,9 +134,9 @@
           </template>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="height-73"></div>
-    <div class="flex-row flex-center" @click="quanxuan">
+    <!-- <div class="flex-row flex-center" @click="quanxuan">
       <img
         :src="
           uploadpath +
@@ -131,9 +149,9 @@
       />
       <div class="f-30 txt-33 margin-left">全选</div>
       <div class="txt-f8 f-24 margin-left">（绿色表示上班，白色表示休息）</div>
-    </div>
+    </div> -->
     <div class="height-54"></div>
-    <div class="flex-row flex-column">
+    <div class="flex-row flex-column" v-if='wcal.length > 0 && (wcal[currentindex].pass==false || wcal[currentindex].today==true)'>
       <div class="baocun" @click="save">保存</div>
     </div>
   </div>
@@ -143,7 +161,8 @@ import Config from "../Config";
 import { PageHelper } from "../PageHelper";
 import { HttpHelper } from "../HttpHelper";
 import { Utils } from "../Utils";
-import { Checkbox, Toast } from "vant";
+import { Checkbox, Toast, Dialog } from "vant";
+import { fail } from 'assert';
 
 export default {
   data() {
@@ -162,6 +181,7 @@ export default {
       currentitem: null,
       weekschedule: [],
       quanarr: [],
+      yitian:[]
     };
   },
   created() {
@@ -186,9 +206,14 @@ export default {
     },
 
     addWeek() {
-       for (let item of this.wcal) {
-        if (item.ischeck) {
-          this.quanarr.push(item);
+      //  for (let item of this.wcal) {
+      //   if (item.ischeck) {
+      //     this.quanarr.push(item);
+      //   }
+      // }
+        for (let item of this.wcal) {
+        if (item.check) {
+          this.yitian.push(item);
         }
       }
       this.wdate = new Date(
@@ -197,13 +222,13 @@ export default {
         this.wdate.getDate() + 7
       );
      
-      console.log(this.quanarr);
+     
       this.loadWeekCalendar();
     },
     jianWeek() {
        for (let item of this.wcal) {
-        if (item.ischeck) {
-          this.quanarr.push(item);
+        if (item.check) {
+          this.yitian.push(item);
         }
       }
       this.wdate = new Date(
@@ -252,6 +277,7 @@ export default {
           d: sdate.getDate(),
           m: sdate.getMonth() + 1,
           timeline: this.timeline(sdate),
+          timeline2:[{name:'',status:'A'}],
           dt: Utils.FormatDate2(sdate),
           datestr: Utils.FormatDate(sdate),
           monday: Utils.getDayname(sdate),
@@ -260,26 +286,50 @@ export default {
         if (d.today) {
           this.currentindex = j;
           this.currentitem = d;
+          d.check=true;
         }
         wcal.push(d);
       }
       this.wcal = wcal;
-      // console.log(wcal, "wcal");
+      console.log(wcal, "wcal");
       this.loadWeekSchedule(startdate, enddate);
       this.checkquan();
     },
     checkquan() {
       console.log(this.quanarr, "quanquna");
-      for (let item of this.wcal) {
-        for (let json of this.quanarr) {
-          console.log(json.dt == item.dt);
+      // var arr=[];
+      // for (let item of this.wcal) {
+      //   for (let json of this.quanarr) {
+      //     console.log(json.dt == item.dt);
+      //     if (json.dt == item.dt) {
+      //       console.log(json.dt == item.dt);
+      //       item.ischeck = true;
+      //       item.timeline=json.timeline;
+      //     }
+      //   }
+      //   if(item.pass==false && item.today==false){
+      //     arr.push(item);
+      //   } 
+      // }
+      var arr2=[];
+      for(let item of this.wcal){
+        for(let json of this.yitian){
           if (json.dt == item.dt) {
-            console.log(json.dt == item.dt);
-            item.ischeck = true;
-            item.timeline=json.timeline;
+           item.check=true;
+            item.timeline2=json.timeline2;
           }
+         
         }
+         if(item.pass==false && item.today==false){
+            arr2.push(item);
+         } 
       }
+      if(arr2.length==this.wcal.length){
+        this.currentindex=0;
+        this.currentitem=this.wcal[0];
+        this.wcal[0].check=true;
+      }
+     
     },
     loadWeekSchedule(sdate, edate) {
       var sdatestr = Utils.FormatDate(sdate);
@@ -290,6 +340,19 @@ export default {
         edate: edatestr,
       }).then((res) => {
         console.log(res);
+        if(res!=null){
+          for(let item of this.wcal){
+            console.log(res[item.datestr],'resres');
+            if(res[item.datestr]!=undefined){
+              item.timeline2=res[item.datestr];
+              if( item.pass==false){
+                item.check=true;
+              }
+            
+            }
+          }
+        }
+       
         this.weekschedule = res;
       });
     },
@@ -342,14 +405,47 @@ export default {
     },
     choseday(item, idx) {
       if (item.pass && item.today == false) {
-        return;
+        // return;
+        this.chosdate = idx;
+      this.currentindex = idx;
+      this.currentitem = item;
+      }else {
+    if(this.currentindex!=idx && item.check==true){
+          item.check==true
+       }else {
+            item.check = item.check?false:true;
+            if(item.timeline2.length>1 || item.timeline2[0].name!=''){
+              item.check =true;
+              Dialog.confirm({
+                  title: "取消",
+                  message: "您是否确认要取消这天的上班时间",
+                })
+                .then(() => {
+                    item.check = false;
+                    for(var i=0;i< item.timeline2.length;i++){
+                      if(item.timeline2[i].id!=undefined){
+                        item.timeline2[i].status='D'
+                      }else {
+                        item.timeline2.splice(i,1);
+                      }
+                    }
+                     item.qdele=true;
+                  })
+                  .catch(() => {
+                    item.check =true;
+                  });
+            }
+       }
+       this.chosdate = idx;
+      this.currentindex = idx;
+      this.currentitem = item;
       }
       console.log(item);
-      this.chosdate = idx;
-      this.currentindex = idx;
-      item.check = item.check ? false : true;
-      this.currentitem = item;
-      this.loadchose();
+     
+     
+      
+   
+      // this.loadchose();
     },
     chostime(d) {
       console.log(d);
@@ -388,8 +484,9 @@ export default {
             console.log(1111);
             if (this.arr[i].id == res.return) {
               console.log(2222);
-              this.arr[i].splice(i, 1);
+              this.arr.splice(i, 1);
             }
+           
           }
         } else {
           Toast.fail(res.result);
@@ -432,38 +529,84 @@ export default {
         return date
     },
     save() {
-      console.log(this.arr);
-    
-      
-      if(this.quanarr.length>0){
-        var date=[];
-        date = this.tijao(this.quanarr);
-        if(date.length>0){
-              var datajson=JSON.stringify(date);
-              HttpHelper.Post('member/quanxuan',{datajson:datajson}).then((res)=>{
-                Toast.success("提交成功");
-              })
+      // console.log(this.arr);
+      console.log(this.wcal);
+      var times=[];
+      for(let item of this.wcal){
+        if(item.check){
+          for(let json of item.timeline2){
+            var d={
+              restdate:item.datestr,
+              name:json.name,
+              enterprise_id: this.Member.enterprise_id,
+              status:json.status
+            }
+            if(json.id!=undefined){
+              d.p_id=json.id;
+            }else {
+              d.p_id=0;
+            }
+            times.push(d);
           }
+          
+        }else if(item.check==false && item.qdele==true && item.timeline2.length>0){
+          for(let json of item.timeline2){
+              var d={
+                restdate:item.datestr,
+                name:json.name,
+                enterprise_id: this.Member.enterprise_id,
+                status:json.status
+              }
+              if(json.id!=undefined){
+                d.p_id=json.id;
+              }else {
+                d.p_id=0;
+              }
+              times.push(d);
+            }
+        }else {}
+      }
+      console.log('tt',times)
+      // return
+
+     if(times.length>0){
+        
+            var datajson=JSON.stringify(times);
+            HttpHelper.Post('member/quanxuan',{datajson:datajson}).then((res)=>{
+              Toast.success("提交成功");
+            })
+          
       }
 
-      if(this.wcal.length>0){
-        var date = [];
-        date = this.tijao(this.wcal);
-         if(date.length>0){
-              var datajson=JSON.stringify(date);
-              HttpHelper.Post('member/quanxuan',{datajson:datajson}).then((res)=>{
-                Toast.success("提交成功");
-              })
-          }
-      }
+      // if(this.quanarr.length>0){
+      //   var date=[];
+      //   date = this.tijao(this.quanarr);
+      //   if(date.length>0){
+      //         var datajson=JSON.stringify(date);
+      //         HttpHelper.Post('member/quanxuan',{datajson:datajson}).then((res)=>{
+      //           Toast.success("提交成功");
+      //         })
+      //     }
+      // }
+
+      // if(this.wcal.length>0){
+      //   var date = [];
+      //   date = this.tijao(this.wcal);
+      //    if(date.length>0){
+      //         var datajson=JSON.stringify(date);
+      //         HttpHelper.Post('member/quanxuan',{datajson:datajson}).then((res)=>{
+      //           Toast.success("提交成功");
+      //         })
+      //     }
+      // }
 
     
-      var str = JSON.stringify(this.arr);
-      HttpHelper.Post("member/savepaiban", {
-        arr: str,
-      }).then((res) => {
-        Toast.success("提交成功");
-      });
+      // var str = JSON.stringify(this.arr);
+      // HttpHelper.Post("member/savepaiban", {
+      //   arr: str,
+      // }).then((res) => {
+      //   Toast.success("提交成功");
+      // });
     },
     quanxuan() {
       var curr = this.wcal[this.currentindex];
@@ -484,6 +627,30 @@ export default {
       curr = timelist;
       this.wcal[this.currentindex].timeline = curr;
     },
+    addtimes(){
+      console.log(this.wcal);
+      console.log(this.currentindex);
+      console.log(this.wcal[this.currentindex]);
+      console.log(this.wcal[this.currentindex].timeline2);
+       if(this.wcal[this.currentindex].timeline2[ this.wcal[this.currentindex].timeline2.length-1].name==''){
+         Toast.fail('请输入时间');
+         return
+       }
+      this.wcal[this.currentindex].timeline2.push({
+        name:'',
+        status:'A'
+      })
+    },
+    detetimes(idx){
+     if( this.wcal[this.currentindex].timeline2[idx].id!=undefined){
+        this.wcal[this.currentindex].timeline2[idx].status='D';
+     }else {
+        this.wcal[this.currentindex].timeline2.splice(idx,1);
+     }
+       
+        console.log(this.wcal[this.currentindex].timeline2)
+    },
+   
   },
 };
 </script>
@@ -497,7 +664,8 @@ export default {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.06);
-  margin-right: 27px;
+  margin-right: 20px;
+  margin-left: 20px;
   font-size: 30px;
   color: #666666;
 }
@@ -560,5 +728,14 @@ export default {
 .zuo_img {
   width: 50px;
   height: 50px;
+}
+.jia_img{
+  width: 40px;
+  height: 40px;
+}
+.stimes {
+  border: none;
+  width: 100%;
+  height: 100%;
 }
 </style>

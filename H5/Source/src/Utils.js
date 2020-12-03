@@ -90,7 +90,7 @@ export class Utils{
         var month = Utils.ten2(date.getMonth() + 1);
         var datec = Utils.ten2(date.getDate());
 
-        var v = year  + month +  datec 
+        var v = year  + month  +  datec 
 
         console.log("FormatDateTime=" + v);
         return v;
