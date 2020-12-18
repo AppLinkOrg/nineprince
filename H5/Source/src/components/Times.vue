@@ -632,10 +632,13 @@ export default {
       console.log(this.currentindex);
       console.log(this.wcal[this.currentindex]);
       console.log(this.wcal[this.currentindex].timeline2);
-       if(this.wcal[this.currentindex].timeline2[ this.wcal[this.currentindex].timeline2.length-1].name==''){
-         Toast.fail('请输入时间');
-         return
-       }
+      if(this.wcal[this.currentindex].timeline2.length>0){
+        if(this.wcal[this.currentindex].timeline2[ this.wcal[this.currentindex].timeline2.length-1].name==''){
+          Toast.fail('请输入时间');
+          return
+        }
+      }
+      
       this.wcal[this.currentindex].timeline2.push({
         name:'',
         status:'A'

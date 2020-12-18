@@ -9,7 +9,7 @@
           :src="props.active ? icon.active :icon.inactive"
           class="home_img"
         />
-        <span>首页</span>
+        <span class="h-20">首页</span>
       </van-tabbar-item>
       <van-tabbar-item  to="/setfocus">
         <img
@@ -18,7 +18,7 @@
           :src="props.active ? icon.active2 :icon.inactive2"
           class="my_img"
         />
-        <span>设置中心</span>
+        <span class="h-20">设置中心</span>
       </van-tabbar-item>
       
     </van-tabbar>
@@ -75,5 +75,8 @@ export default {
 }
 .van-tabbar {
   height: 100px;
+}
+.h-20 {
+  font-size: 20px;
 }
 </style>

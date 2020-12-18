@@ -20,7 +20,7 @@
           <div>
               <div class="bold txt-33 f-40">{{item.project_name}}</div>
               <div class="txt-5c f-30 margin-tb-22 margin-left-17">X1</div>
-              <div class="txt-66 f-24">服务时间：{{item.duration_name}}</div>
+              <div class="txt-66 f-24">服务时间：{{item.yuyueriqi+' '+item.duantime}}</div>
           </div>
         </div>
 

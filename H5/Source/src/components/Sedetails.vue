@@ -60,7 +60,7 @@
             class="padding-top-3x padding-bottom-3x border-bottomEEE flex-row flex-center "
           >
             <div class="flex-1 txt-666 f-24 ">服务时间</div>
-            <div class="txt-33 f-24 bolder-500">{{orderinfo.yuyueriqi}}</div>
+            <div class="txt-33 f-24 bolder-500">{{orderinfo.yuyueriqi+' '+orderinfo.duantime}}</div>
           </div>
           <!-- 服务地址 -->
           <div class="padding-top-3x padding-bottom-3x  flex-row flex-center ">
